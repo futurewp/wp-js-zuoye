@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组</title>
+</head>
+<body>
+	<script>
+  // 数组
+        var arr=[10,9,7,6,16,21,93];
+        console.log(arr);
+  // 选出数组中第五位数
+        console.log(arr[4]);
+  // 选出数组中最大的数
+        var max=arr[0];
+        for(var n=1;n<arr.length;n++){
+        	if(max<arr[n]){
+        		max=arr[n];
+        	}
+        }
+        console.log(max);
+  // 将数组中的数据进行降序排列 
+        for(var m=0;m<arr.length;m++){
+        	for(var v=m+1;v<arr.length;v++){
+        	     if(arr[m]<arr[v]){
+        	     	 var temp=arr[m];              //赋予一个变量  当做中间转换值
+        		     arr[m]=arr[v];
+        		     arr[v]=temp;
+        		 }
+        }
+        }
+        console.log(arr);
+       
+   //while循环
+         // var x=1;
+         // while(x<=10){        // 	}
+
+         // 	document.write(x);
+         // 	x++;
+         // }
+  //二维数组求最大值
+  // var zhangsan=[70,80,90];
+  // var lisi=[75,85,95];
+  // var wangwu=[60,65,70];
+  // var classes=[zhangsan,lisi,wangwu];
+  var classes1=[[70,80,90],[75,85,95],[60,65,70]]
+  //classes1[0][0]表示zhangsan的70（二维数组中的数据的表示方法）
+  var max=classes1[0][0];    
+  for(var i=0;i<classes1.length;i++){
+  	for(var j=0;j<classes1[i].length;j++){
+  		if(max<classes1[i][j]){
+  			max=classes1[i][j]
+  		}
+  	}
+  }
+  console.log(max);
+  // 去空：将原数组的未定义空格取消掉
+  // （方法一：创建新数组，把原数组中定义过的数据重新放入新数组中）
+        var arr=[1,2,3,,4,5,6,7,8];
+        var arr1=[];
+        var j=0;
+        for(var i=0;i<arr.length;i++){
+        	if(arr[i]!==undefined){
+        		arr1[j]=arr[i];
+        		j++;
+        	}
+        }
+        console.log(arr1);
+
+  // （方法二：创建新数组，把原数组中定义过的数据重新放入新数组中）
+        var arr=[1,2,3,,4,5,6,7,8];
+        var arr1=[];
+        for(var i=0;i<arr.length;i++){
+        	if(arr[i]!==undefined){
+    // 注意这里的arr1[arr1.length]是指新数组中的最后一位
+        		arr1[arr1.length]=arr[i];   
+        	}
+        }
+        console.log(arr1);
+
+  // （方法三：创建新数组，把原数组中定义过的数据重新放入新数组中）
+        var arr=[1,2,3,,4,5,6,7,8];
+        var arr1=[];
+        for(var i=0;i<arr.length;i++){
+        	if((typeof arr[i]) !=='undefined'){    
+    //注意这里的undefined是字符串
+        		arr1[arr1.length]=arr[i];
+        	}
+        }
+        console.log(arr1);       
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+    alert('wangpeng');
+	alert("wangpeng");
+	alert(1);
+	console.log(1); 
+	console.log('wp'); 
+	console.log("wp"); 
+	document.write(1);
+	document.write('wp');
+	document.write("wp");
+	document.write('<b>wp</b>');
+	document.write("<b>wp</b>");
+	var a;
+
+	alert(a);
+		a=10;
+	var a;
+	alert(a);
+	var num1=43;
+	var num2=40;
+	var info="我们班由两个班组成，第一个班505班有"+num1+"人，第二个班507班有"+num2+"人，总共有"+(num1+num2)+"人";
+	document.write(info)
+	var num=20;          
+
+	alert(5+num++);          
+	alert(--num);            
+	alert(num+5);            
+    alert(num--);           
+    num=num+5;              
+    alert(num)            
+    num1='10';
+    num2='2px';
+    alert(num1<num2);
+    alert(false>=0)
+    var num1=43;
+	var num2=40;
+	var info=`我们班由两个班组成,
+	第一个班505班有${num1}人，
+	第二个班507班有${num2}人，
+	总共有${num1+num2}人`;
+	
+    alert(info);
+	   var score=prompt('请输入你的成绩',60,);
+	   if(score>=90 && score<=100){
+         alert('优秀')
+       }else if(score>=80 && score<90){
+       	alert('良好')
+       }else if(score>=70 && score<80){
+       	alert('中等')
+       }else if(score>=60 && score<70){
+       	alert('及格')
+       }else if(score>=0 && score<60){
+       	alert('不及格')
+       }else{
+       	alert('您的输入有误，请重新输入')
+       }
+	   var num=11
+	   if(num%2===0){
+         alert(true)
+       }else{
+       	alert(false)
+       }
+    var week=1*prompt('请输入日期',1);
+    switch(week){
+         case 1 :
+         alert('一组');
+         break;
+         
+         case 2 :
+         alert('二组');
+         break;
+         
+         case 3 :
+         alert('三组');
+         break;
+         
+         case 4 :
+         alert('四组');
+         break;
+
+         case 5 :
+         alert('五组');
+         break;
+         
+         case 6 :
+         alert('六组');
+         break;
+
+         case 7 :
+         alert('七组');
+         break;
+         
+         default:
+         alert('您的输入有误，请重新输入');
+     }
+     var sum=0;
+     for(var i=1;i<11 && i%2!==0;i=i+2){
+     	sum=sum+i;
+     }
+     alert(sum);
+     var sum=0;
+     for(var i=1;i<11 && i%2===1;i+=2){
+     	sum=sum+i;
+     }
+     alert(sum);
+</script>

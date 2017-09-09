@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数1</title>
+</head>
+<body>
+	<script>
+	
+	//indexof 将数组中某一特定值第一次出现的位置弹出;
+		var arr=[1,2,3,4,5,6,7,5,4,2,5,3,1];
+		var result=indexof(arr,8);
+		alert(result);
+	
+	function indexof(arr,one){
+		for (var i=0;i<arr.length;i++){
+			if(arr[i]==one){
+				return i;
+			}
+		}
+		return -1;
+	} 
+	
+	//indexof 将数组中某一特定值最后一次出现的位置弹出;
+		var arr=[1,2,3,4,5,6,7,5];
+		var result=lastindexof(arr,5);
+		alert(result);
+	
+	function lastindexof(arr,one){
+		for (var i=arr.length-1;i>=0;i--){
+			if(arr[i]==one){
+				return i;
+			}
+		}
+		return -1;
+	} 
+    //reverse 将数组水平翻转180度成为一个新数组
+    var arr1=[1,2,3,4,5,6];
+    var res=reverse(arr1);
+    console.log(res);
+    
+    function reverse(arr1){
+    var newarr=[];
+    for(var a=arr1.length-1;a>=0;a--){
+          push(newarr,arr1[a])
+    }
+    return newarr;
+    }
+    
+    //push 将某一元素移到一个数组上；
+    var arr2=[1,2,3,4];
+    var res1=push(arr2,'a','b')
+    console.log(res1);
+    
+    function push(arr2,...rest){
+    	for(var b=0;b<rest.length;b++){
+    		arr2[arr2.length]=rest[b];
+    	}
+    return arr2;
+    }
+   
+    //万能的删除与添加
+         //万能的删除   splice
+         //pos 要删除的元素下标  num 要删除的元素数量
+         var arr3=[1,2,3,4,5,6,7,8];
+         var res2=splicecancel(arr3,1,2);
+         console.log(res2);
+         
+         function splicecancel(arr3,pos,num){
+         	var newarr1=[];
+         	for(var c=0;c<arr3.length;c++){
+         	    if(c>=pos && c<pos+num){
+         		continue;
+         	    }
+         	    newarr1[newarr1.length]=arr3[c];
+         	}
+         	return newarr1;
+         }
+         
+         //万能的添加   spliceadd
+         //pos 某个特定元素（在这元素前添加新的元素）的下标  
+         var arr4=[1,2,3,4,5,6,7,8];
+         var res3=spliceadd(arr4,2,'a','b','c');
+         console.log(res3);
+         
+         function spliceadd(arr4,pos,...rest){
+         	var newarr2=[];
+         	//将原数组中pos前的元素放入新数组
+            for(var d=0;d<pos;d++){          
+                newarr2[newarr2.length]=arr4[d];	
+            }
+            //将需要添加元素放入新数组
+            for(var e=0;e<rest.length;e++){
+            	newarr2[newarr2.length]=rest[e];
+            }
+            //将原数组中pos后（连同pos）的元素放入新数组
+            for(var d=pos;d<arr4.length;d++){
+            	newarr2[newarr2.length]=arr4[d];
+            }
+         	return newarr2;
+         }
+         
+         // 万能的删除与添加
+        function splice(arr5,pos,num,...rest){
+        	var newarr2=splicecancel(arr5,pos,num);
+        	if(rest.length>num){
+        	    newarr2=spliceadd(newarr2,pos,...rest)
+        	}
+            return newarr2;
+        }
+       
+        arr5=[1,2,3,4,5,6,7,8,9]
+        var res4=splice(arr5,2,2,'a','b','c');
+        console.log(res4);
+      // some every-----映射
+      // some  满足某一条件弹true
+      function some(arr,fn){
+        for(var f=0;f<arr.length;f++){
+            if(fn(arr[f])){
+                return true;
+            }
+        }
+        return false;
+      }
+      var arr6=[1,2,3,4,5,6,7,8,9]
+      var res5=some(arr6,function(value){
+           return value<5;
+      })
+      console.log(res5)
+      //every 满足所有一条件弹true
+      function every(arr,fn){
+        for(var g=0;g<arr.length;g++){
+            if(!fn(arr[g])){
+                return false;
+            }
+        }
+        return true;
+      }
+
+      var arr7=[1,2,3,4,5,6,7,8,9];
+      var res6=every(arr7,function(value){
+              return value<10;
+      })
+      console.log(res6);
+
+      // 递归函数（函数自己调用自己）  不是循环
+      
+      // 例1 fn(1);
+          function fn(num){
+            // alert(num);
+            if(num<5){
+                fn(++num)
+            }
+            alert(num);
+          }
+      // 完全拷贝数组的两种方法的区别：  
+          var arr=[1,2,3,4];
+          arr1=arr;     //赋值的是地址（浅拷贝）
+          arr[1]='a';
+          arr1[2]='b';
+          console.log(arr);
+          console.log(arr1);
+          
+          var arr=[1,2,3,4];
+          newarr3=[];    //赋值的是传值（深拷贝）
+          for(var h=0;h<arr.length;h++){
+              newarr3[newarr3.length]=arr[h]
+          }
+          arr[1]='a';
+          newarr3[2]='b';
+          console.log(arr);
+          console.log(newarr3);
+
+          // 例：---递归函数
+          var arr=[1,2,3,4,['a','b','c']];
+          var arr1=copy(arr);
+           // arr[4][1]='e';    //检测‘赋值---传值’方法的不同处
+          console.log(arr);
+          console.log(arr1);
+
+          function copy(arr){
+            var newarr4=[];
+            for(var j=0;j<arr.length;j++){
+                if(typeof arr[j]=='object'){
+                    newarr4[j]=copy(arr[j]);      //函数自己调用自己---递归函数
+                }else{
+                    newarr4[j]=arr[j];
+                }
+            }
+            return newarr4;
+          }
+	</script>
+ 
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数</title>
+</head>
+<body>
+	<script>
+  //  函数---表格  任意行任意列
+  // 函数体变量：(rows,cols)---形参    table(2,5)---实参
+  function table(rows,cols){
+		document.write('<table border="1px" cellspacing="0" cellpadding="15px" width="80%" align="center">')
+		   for(var i=1;i<=rows;i++){
+		   document.write('<tr>')
+		     for(var j=1;j<=cols;j++){
+		      document.write('<td align="center">'+i+'-'+j+'</td>')
+		     }
+		   document.write('</tr>')
+		   document.write('<br />')
+		   }
+		document.write('</table>')	
+  }
+ //调用函数---表格
+  table(8,5)
+
+
+//函数---金字塔
+    function jinzita(row1){
+  		var row=row1;
+		for(var i=1;i<=row1;i++){
+			for(var j=1;j<=row1-i;j++){
+				document.write('&nbsp');
+			}
+			for(var j=1;j<=2*i-1;j++){
+				document.write('*');
+			}
+        document.write('<br />');
+		}
+    }
+
+    jinzita(7)
+
+//函数---选出数组中最大的数
+    function Arr(arr1){
+        var arr1;
+        var max=arr1[0];
+        for(var n=1;n<arr1.length;n++){
+        	if(max<arr1[n]){
+        		max=arr1[n];
+        	}
+        }
+        console.log(max);
+    }
+var arr=[51,21,31,45,42,43,2,5,6,7,8];
+   // sort(arr,'<')
+   // sort(arr,'>')
+   sort(arr)
+function sort(arr2,type){
+//   //分支
+        if(type===undefined){
+          type='<';
+        }
+  // 三元表达式
+        // type=type===undefined ? '<':type;
+  //逻辑||
+        // type=type||'<'; 
+  // ES6
+        //把sort(arr2,type)改成sort(arr2,type='<') 
+
+  if(type==='<'){
+    sortdown(arr2);
+  }else if(type==='>'){
+    sortup(arr2);
+  }
+    // var arr=[51,21,31,45,42,43,2,5,6,7,8];
+    // Arr(arr);
+ //函数---将数组中的数据进行升序排列 
+    function sortup(arr2){
+        var arr2; 
+        for(var m=0;m<arr2.length;m++){
+          for(var v=m+1;v<arr2.length;v++){
+               if(arr2[m]>arr2[v]){
+                 var temp=arr2[m];             
+                 arr2[m]=arr2[v];
+                 arr2[v]=temp;
+             }
+            }
+        }
+        console.log(arr2);
+    }
+    // var arr3=[51,21,31,45,42,43,2,5,6,7,8];
+    // sortup(arr3);
+ //函数---将数组中的数据进行降序排列 
+    function sortdown(arr2){
+        var arr2; 
+        for(var m=0;m<arr2.length;m++){
+        	for(var v=m+1;v<arr2.length;v++){
+        	     if(arr2[m]<arr2[v]){
+        	     	 var temp=arr2[m];             
+        		     arr2[m]=arr2[v];
+        		     arr2[v]=temp;
+        		 }
+            }
+        }
+        console.log(arr2);
+    }
+    // var arr3=[51,21,31,45,42,43,2,5,6,7,8];
+    // sortdown(arr3);
+}     
+    
+// 函数---二维数组求最大值
+function Arr2(arr3){
+  var arr3;
+  var max=arr3[0][0];    
+  for(var i=0;i<arr3.length;i++){
+  	for(var j=0;j<arr3[i].length;j++){
+  		if(max<arr3[i][j]){
+  			max=arr3[i][j]
+  		}
+  	}
+  }
+  console.log(max); 
+}
+
+var arr4=[[70,120,90],[75,85,106],[60,65,70]];
+Arr2(arr4); 
+
+
+// 函数---去空：将原数组的未定义空格取消掉
+function qukong(arr5){
+        var arr5;
+        var arr1=[];
+        var j=0;
+        for(var i=0;i<arr5.length;i++){
+        	if(arr5[i]!==undefined){
+        		arr1[j]=arr5[i];
+        		j++;
+        	}
+        }
+        console.log(arr1);
+}
+var arr6=[2,,3,4,5,,7,6,,8,1,,9]
+qukong(arr6)
+
+// 在数组元素后面添加任意个数组、元素
+      var arr=[1,2,3,4,5,6];
+      push(arr,'a','b');
+      function push(arr,...value){
+        for(var i=0;i<value.length;i++){
+           arr[arr.length]=value[i];
+          }
+        console.log(arr);
+      } 
+
+//判断数组存在某一特定值，存在 true、false;
+  var arr=[1,2,3,4,5,0,7,8,9];
+  alert(typeof(arr));
+  var result=exist(arr,0);
+  alert(result);
+  function exist(arr,value){
+    if(!(typeof arr==="object" && arguments.length>1)){
+      return 输入错误;
+    }
+    for (var i=0;i<arr.length;i++){
+      if(arr[i]===value){
+        return true;
+      }
+    }
+    return false;
+  }
+  // 把数组元素转化为字符串
+  var arr1=[1,2,3,4,5,6,7,8,9];
+  var sss=join(arr1);
+  console.log(sss);
+  function join(arr,str){
+    str=str===undefined ? '-':str;
+    var result='';
+    for(var i=0;i<arr.length;i++){
+      if (i<arr.length-1){
+        result+=arr[i]+str;
+      }else{
+      result+=arr[i];
+      }
+    } 
+    return result;
+  }
+  // 把数组里面是偶数的数组元素筛选出来;
+  var arr2=[1,2,3,4,5,6,7,8,9];
+  var arr3=Arr(arr2);
+  console.log(arr3);
+  function Arr(arr){
+  var arr1=[];
+    for(var i=0;i<arr.length;i++){
+      if (arr[i]%2==0){
+        arr1[arr1.length]=arr[i];
+      }
+    }
+    return arr1;
+  }
+   // 作用域
+  function math(num1,num2,fn){
+    return fn(num1,num2)
+  } 
+  function aa(num1,num2){
+     return num1*2+num2
+  }
+  function bb(num1,num2){
+     return num1*2-num2
+  }
+  function cc(num1,num2){
+     return num1*num2
+  }
+  
+  var result=math(5,2,cc);
+  console.log(result)
+  
+  
+  // 映射  将数组内的每个元素翻倍
+  arr=[1,2,3,4,5,6,7,8]
+   function map(arr,fn){
+    var newarr=[];
+    for (var i=0;i<arr.length;i++){
+      newarr[newarr.length]=fn(arr[i]);
+    }
+    return newarr;
+   }
+  var res=map(arr,function(value){
+    return value*2
+  })
+  console.log(res);
+
+  // 将数组内大于3元素找出来----回调函数
+   arr=[1,2,3,4,5,6,7,8]
+   function filter(arr,fn){
+    var newarr=[];
+    for (var i=0;i<arr.length;i++){
+      if(fn(arr[i])){
+        newarr[newarr.length]=arr[i];
+      }
+    }
+    return newarr;
+   }
+  var rese=filter(arr,function(value){
+    return value>3;
+  })
+  console.log(rese);
+
+	</script>
+
+</body>
+</html>
