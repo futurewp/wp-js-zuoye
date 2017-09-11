@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>object</title>
+</head>
+<body>
+	<script>
+//如何创建对象
+	//json
+		let wp={}
+		console.log(typeof wp)
+	//构造函数
+	function person(){}          //类
+	let wp1= new person()        //对象1
+	let wp2= new person()        //对象2
+	console.log(typeof wp1)
+	console.log(typeof wp2)
+// 添加属性的方法
+	wp1.age=22;
+	wp1.name='王鹏';
+	wp1.say=function(){
+		alert(wp1.name)
+	}
+	wp2.classes='wuif1707-1';
+	wp2.skill='js';
+	// 如何访问
+	alert(wp1.age);
+	alert(wp1.name);
+	wp1.say();
+	alert(wp2.classes);
+	alert(wp2.skill);
+	</script>
+</body>
+</html>

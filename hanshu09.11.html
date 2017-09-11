@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包函数、箭头函数</title>
+</head>
+<body>
+	<script>
+	//闭包函数：在一个函数内部嵌套一个函数，当把内部函数作为返回值返回时，在函数外部调用，可以运行内部函数。
+	    function fn(){
+            var num=10;
+            return fn1;
+            function fn1(){
+              num++; 
+              return num;
+            }
+          }
+        alert(fn());  //弹出fn1函数
+        result=fn();
+        alert(result()); //弹出  11
+	// 箭头函数：es6新加的函数;  一般用于回调函数
+	// 用法：        当没有形参a时，需添加小括号();
+	//              当形参数量多(例：a、b)时，需添加小括号(a,b);
+	//              当函数体内容多时，需添加大括号{};
+	// 注意事项：    在箭头函数中没有 arguments
+	var fn = function(a){
+		return a
+	}
+    alert(fn(2));
+    //等价于
+    var fn = a=>a; //箭头函数
+    alert(fn(10));
+
+
+//     // 块级作用域
+// {
+//   let num=10;
+//   var str='abcd'
+//   console.log(str);   //abcd
+//   console.log(num); //  10
+// }
+//   console.log(str);//abcd
+//   console.log(num);//   undefined
+  const 常量
+
+
+
+
+	</script>
+	
+</body>
+</html>

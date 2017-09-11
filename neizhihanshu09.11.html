@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>内置 顶层 函数</title>
+</head>
+<body>
+	<script>
+//数据类型转换
+	//汉字编码escape();
+		console.log(escape('张三'));
+	//汉字解码unescape(); 
+	    console.log(unescape("%u5F20%u4E09"));
+	//把其他类型转化为数字类型（严谨型转换，只识别数字型的数字串）Number();
+		console.log(Number(123));         //123
+		console.log(Number(0b1111));      //15  二进制
+		console.log(Number(false));          //0
+		console.log(Number(true));          //1
+		console.log(Number(null));           //0
+		console.log(Number(undefined));     //NaN 
+		console.log(Number(01239));         //1239
+		console.log(Number('0123'));        //123
+		console.log(Number(12300));        //12300
+		console.log(Number('123.00'));    //123
+		console.log(Number('123.01'));    //123.01
+		console.log(Number('123.01.2')); //NaN
+		console.log(Number('123px'));    //NaN   只识别数字型的数字串   
+		console.log(Number('abcd')); //NaN       只识别数字型的数字串
+		console.log(Number('true')); //NaN       只识别数字型的数字串
+		console.log(Number('')); //0 
+    //把其他类型转化为字符串类型 String();
+		console.log(String(123));   //123
+	//把其他类型转化为布尔类型 Boolean();
+		console.log(Boolean([])); //ture
+		console.log(Boolean(function(){})); //ture
+    //把字符串类型转化为整数 parseInt();
+    //以数字、空格、‘+’、‘-’开头，从第一个数字字符到第一个非数字字符结束的整数
+		console.log(parseInt('1234'));          //1234
+		console.log(parseInt('0b1234'));        //0
+		console.log(parseInt('100px'));         //100
+		console.log(parseInt('100px200'));      //100
+		console.log(parseInt('-100px200'));     //-100
+		console.log(parseInt('  -100px200'));   //-100
+		console.log(parseInt('-1.00px200'));    //-1
+		console.log(parseInt('abc100px200'));   //NaN
+	//把字符串类型转化为浮点数 parseFloat(); 
+	//规则与parseInt()相同；当字符串中的数字无浮点时，
+	//转换过来的数字也无浮点（不会专门添小数点）
+		console.log(parseFloat('100.5px'));      //100.5
+		console.log(parseFloat('100px'));       //100
+	//isNaN---is not a number 
+	//这里的number不是很严谨，只要能转换成数字的都是number
+	    console.log(isNaN(123));    //false
+		console.log(isNaN(false));  //false
+		console.log(isNaN('abcd'));  //true
+// 隐式转换----if
+		var num;
+		if(num==undefined){
+           num='x';
+		}else{
+			num=num;
+		}
+		alert(num);
+    // 等价于
+		var num;
+		if(num){
+           num=num;
+		}else{
+			num='x';
+		}
+		alert(num);
+// 隐式转换----算术
+     var num1='11';
+     var num2=4;
+     console.log(num1-num2);  //7 
+// 隐式转换----关系
+     var num1='11';
+     var num2=4;
+     console.log(num1>num2);  //true 
+
+// // 隐式转换---三元
+//函数---将数组中的数据进行有规则的排列 
+var arr=[51,21,31,45,42,43,2,5,6,7,8];
+   sort(arr)
+function sort(arr2,type){
+  // type=type===undefined ? '<':type;
+  type=type ? type:'<';
+  if(type==='<'){
+    sortdown(arr2);
+  }else if(type==='>'){
+    sortup(arr2);
+  }
+ //函数---将数组中的数据进行升序排列 
+    function sortup(arr2){
+        var arr2; 
+        for(var m=0;m<arr2.length;m++){
+          for(var v=m+1;v<arr2.length;v++){
+               if(arr2[m]>arr2[v]){
+                 var temp=arr2[m];             
+                 arr2[m]=arr2[v];
+                 arr2[v]=temp;
+             }
+            }
+        }
+        console.log(arr2);
+    }
+ //函数---将数组中的数据进行降序排列 
+    function sortdown(arr2){
+        var arr2; 
+        for(var m=0;m<arr2.length;m++){
+        	for(var v=m+1;v<arr2.length;v++){
+        	     if(arr2[m]<arr2[v]){
+        	     	 var temp=arr2[m];             
+        		     arr2[m]=arr2[v];
+        		     arr2[v]=temp;
+        		 }
+            }
+        }
+        console.log(arr2);
+    }
+} 
+// 隐式转换----逻辑
+    var num1='11';
+    var num2=4;
+    if(typeof num1=='string' && typeof num2=='number'){
+    	console.log(true);
+    }else{
+    	console.log(false);
+    }
+// 隐式转换----while
+		var num3;
+		while(num3==undefined){
+           num3='x';
+		}
+		alert(num3);
+    // 等价于
+		var num4;
+		while(!num4){
+           num4='m';
+		}
+		alert(num4);
+	</script>
+</body>
+</html>
