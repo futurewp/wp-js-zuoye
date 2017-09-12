@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>myarray</title>
+</head>
+<body>
+	<script>
+//MY Array   我的数组
+     // var arr= new Array('a','b','c'); /一个数组（js自带）
+     // console.log(arr);
+
+      var arr= new myArray('a','b','c','d');
+      console.log(arr);
+//push 将某一元素移到一个数组上；
+      var arr1= new myArray(1,2,3,4);
+      arr1.push('x','y','z');
+      console.log(arr1);
+
+//indexof 将数组中某一特定值第一次出现的位置弹出;
+      var arr2= new myArray(1,2,4,2,5);
+      var r=arr2.indexof(2);
+      console.log(r);
+//lastindexof 将数组中某一特定值最后一次出现的位置弹出;
+      var arr3= new myArray(1,2,4,2,5);
+      var r1=arr3.lastindexof(2);
+      console.log(r1);
+//reverse 将数组水平翻转180度成为一个新数组
+      var arr4= new myArray(1,2,3,4,5);
+      var r2=arr4.reverse();
+      console.log(r2);
+// some  满足某一条件弹true
+      var arr5= new myArray(1,2,3,'a','b');
+      var r3=arr5.some(function(value){ 
+      	return typeof value=='number'
+      });
+      console.log(r3);
+//every 满足所有一条件弹true
+      var arr6= new myArray(1,2,3,4,5,'a');
+      var r4=arr6.every(function(value){ 
+      	return typeof value=='number';
+      });
+      console.log(r4);
+// 将数组内大于3元素找出来----回调函数
+      var arr7= new myArray(1,2,3,4,5);
+      var r5=arr7.filter(function(value){ 
+      	return value>3;
+      });
+      console.log(r5);
+// 映射  将数组内的每个元素翻倍
+      var arr8= new myArray(1,2,3,4,5);
+      var r6=arr8.map(function(value){ 
+      	return value*2;
+      });
+      console.log(r6);
+// 把数组元素转化为字符串
+      var arr9= new myArray(1,2,3,4,5);
+      var r7=arr9.join();
+      console.log(r7);
+//判断数组存在某一特定值，存在 true、不存在false; includes
+      var arr10= new myArray(1,2,3,4,5);
+      var r8=arr10.includes(2);
+      console.log(r8);
+//选出数组中最大的数max
+      var arr11= new myArray(1,3,2,6,5,4);
+      var r9=arr11.max();
+      console.log(r9);
+//选出数组中最小的数min
+      var arr12= new myArray(1,3,2,6,5,4);
+      var r10=arr12.min();
+      console.log(r10);
+ //去空：将原数组的未定义空格取消掉 empty
+      var arr13= new myArray(2,3,4,5,undefined,7);
+      var r11=arr13.empty();
+      console.log(r11);
+//将数组中的数据进行有序排列 sort
+      var arr14= new myArray(1,3,2,6,5,4);
+      var r12=arr14.sort();
+      console.log(r12);
+ function myArray(){
+        for(let i=0;i<arguments.length;i++){
+            this[i] = arguments[i];
+        }
+        this.length = arguments.length
+     
+       //push 将某一元素移到一个数组上；
+        this.push = function(){
+          for(let i=0;i<arguments.length;i++){
+          	this[this.length]=arguments[i];
+          	this.length++;
+          }
+        }
+       //indexof 将数组中某一特定值第一次出现的位置弹出;
+       this.indexof =function(value){
+       	   for(let i=0;i<this.length;i++){
+       		   if(this[i]==value){
+       			   return i;
+       		   }
+       	   }
+       	   return -1;
+       }
+      //lastindexof 将数组中某一特定值最后一次出现的位置弹出;
+       this.lastindexof =function(value){
+       	   for(let i=this.length-1;i>=0;i--){
+       		   if(this[i]==value){
+       			   return i;
+       		   }
+       	   }
+       	   return -1;
+       }
+      //reverse 将数组水平翻转180度成为一个新数组
+      this.reverse = function(){
+      	var newarr=[];
+        for(let i=this.length-1;i>=0;i--){
+              newarr[newarr.length]=this[i];
+        }
+        return newarr;
+        }
+      // some  满足某一条件弹true
+      this.some = function(fn){
+      	for(let i=0;i<this.length;i++){
+      		if(fn(this[i])){
+      			return true;
+      		}
+      	}
+      	return false;
+      }
+     //every 满足所有一条件弹true
+      this.every = function(fn){
+      	for(let i=0;i<this.length;i++){
+      		if(!fn(this[i])){
+      			return false;
+      		}
+      	}
+      	return true;
+      }
+     // 将数组内大于3元素找出来----回调函数
+     this.filter = function(fn){
+     	var newarr=[];
+        for (let i=0;i<this.length;i++){
+          if(fn(this[i])){
+            newarr[newarr.length]=this[i];
+          }
+        }
+        return newarr;
+     }
+    // 映射  将数组内的每个元素翻倍
+    this.map = function(fn){
+       var newarr=[];
+       for (let i=0;i<this.length;i++){
+         newarr[newarr.length]=fn(this[i]);
+       }
+       return newarr;
+    }
+    // 把数组元素转化为字符串
+    this.join = function(str){
+      str=str===undefined ? '-':str;
+      var result='';
+      for(let i=0;i<this.length;i++){
+        if (i<this.length-1){
+          result+=this[i]+str;
+        }else{
+        result+=this[i];
+        }
+      } 
+      return result;
+    }
+    // 判断数组存在某一特定值，存在 true、不存在false; includes
+    this.includes = function(value){
+       for (let i=0;i<this.length;i++){
+         if(this[i]===value){
+           return true;
+         }
+       }
+       return false;
+    }
+    // 选出数组中最大的数max
+    this.max = function(){
+        var max=this[0];
+        for(let i=0;i<this.length;i++){
+        	if(max<this[i]){
+        		max=this[i];
+        	}
+        }
+        return max;
+    }
+    // 选出数组中最小的数min
+    this.min = function(){
+        var min=this[0];
+        for(let i=0;i<this.length;i++){
+        	if(min>this[i]){
+        		min=this[i];
+        	}
+        }
+        return min;
+    }
+     //去空：将原数组的未定义空格取消掉 empty
+     this.empty = function(){
+        var newarr=[];
+        for(var i=0;i<this.length;i++){
+        	if((this[i])!==undefined){
+        		newarr[newarr.length]=this[i];
+        	}
+        }
+        return newarr;
+     }
+    //将数组中的数据进行有序排列 sort
+    this.sort = function(type){
+				type = type==undefined ? '>' :type;
+				//函数---将数组中的数据进行升序排列
+				if(type=='<'){
+					for(let i=0;i<this.length;i++){
+						for(let j=i+1;j<this.length;j++){
+							if(this[i]<this[j]){
+								let a=this[i];
+								this[i]=this[j];
+								this[j]=a;
+							}
+						}
+					}
+					return this;
+				}
+				//函数---将数组中的数据进行降序排列
+				else if(type=='>'){
+					for(let i=0;i<this.length;i++){
+						for(let j=i+1;j<this.length;j++){
+							if(this[i]>this[j]){
+								let a=this[i];
+								this[i]=this[j];
+								this[j]=a;
+							}
+						}
+					}
+					return this;
+				}
+	}           
+}
+	</script>
+</body>
+</html>

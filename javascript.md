@@ -113,8 +113,10 @@ let 1. 在变量声明之前不能调用（一定要先声明在调用）
        let str=10;           //报错
     }
     2. 在同一个作用域内不能重复声明同一个变量
+    var num=10;
+    let num=5;
+    console.log(num); //报错
     
-
 ```
 ##### let与var的区别：
 
@@ -128,6 +130,8 @@ let 1. 在变量声明之前不能调用（一定要先声明在调用）
   console.log(str);  //报错  暂时性的死区
   let str=10;           
 ```
+
+3.let 识别块级作用域
 
 ##### 块级作用域
 
@@ -177,7 +181,7 @@ let 1. 在变量声明之前不能调用（一定要先声明在调用）
 
 变量的值不允许变动时，成为常量；const定义的就是常量（定值）。
 
-1.声明完成后不允许修改
+1.声明完成后不允许修改..
 
 2.声明的同时进行赋值，不允许先声明后赋值
 
@@ -1213,7 +1217,7 @@ function fn(arr,...rest){
 		return -1;
 	} 
 	
-	//indexof 将数组中某一特定值最后一次出现的位置弹出;
+	//lastindexof 将数组中某一特定值最后一次出现的位置弹出;
 		var arr=[1,2,3,4,5,6,7,5];
 		var result=lastindexof(arr,5);
 		alert(result);
@@ -1566,7 +1570,7 @@ function fn(arr,...rest){
 		console.log(String(123));   //123
 ```
 
-#### 1.5 parselnt
+#### 1.5 parseInt
 
 ```JS
     //把字符串类型转化为整数 parseInt();
@@ -1722,8 +1726,8 @@ function sort(arr2,type){
 #### 1.1方法一---josn
 
 ```JS
-	//json
-		let wp={}
+	//json    json的默认函数是object()   ,js系统默认
+		let wp={}  ------let wp= new object()
 		console.log(typeof wp)
 ```
 
@@ -1738,27 +1742,109 @@ function sort(arr2,type){
 	console.log(typeof wp2)
 ```
 
+#### 1.3方法三---类
+
+```JS
+class Student2{
+	constructor(){
+		this.name='zhangsan';
+		this.age=18;
+		this.say=function(){
+			alert('abcd')
+		}
+	}
+	study(){
+		alert('学习')
+	}
+	play(){
+		alert('play')
+	}
+}	
+
+var zhangsan2= new Student2();
+zhangsan2.say();
+zhangsan2.study();
+zhangsan2.play();
+```
+
 ### 2.属性、方法
+
+constructor 是每个对象都有的属性-----返回构造函数
 
 #### 2.1 如何添加属性、方法
 
 ```JS
-	wp1.age=18;
+方法一：
+    wp1.age=18;
 	wp1.name='王朋';
 	wp2.age=22;
 	wp2.name='王鹏';
     wp1.say=function(){
 		alert(wp1.name)
 	}
+    
+方法二：
+    let zhangsan = {
+      "age":18,
+      "sex":'nan',
+      name:'zhangsan',        //属性的引号 可加可不加
+      say:function(){
+        alert(1)
+}
+    };
+
+console.log(zhangsan);
+zhangsan.say();
 ```
 
 #### 2.2如何访问属性、方法
 
 ```JS
-	alert(wp1.age);
+方法一：对象名.方法名/属性名	
+    alert(wp1.age);
 	alert(wp1.name);
 	alert(wp2.age);
 	alert(wp2.name);
     wp1.say();
 ```
+
+```JS
+方法二：对象名['方法名/属性名']
+```
+
+```js
+     iphone.sss   //访问没有的属性  不会报错，默认undefined；
+     iphone.sss()   //访问没有的属性  报错
+```
+
+#### 2.3 遍历
+
+```js
+for(let.方法名和属性名的概括..in.对象名..){
+  console.log(`${方法名和属性名的概括}=${对象名[方法名和属性名的概括]}`)
+}
+例： for(let i in iphone8){                      //i 是字符串
+     	console.log(`${i}=${iphone8[i]}`)       //``  反引号  （英文状态下esc下方的键）
+     }
+
+```
+#### 2.4 如何创建自己的数组对象
+
+```JS
+     //MY Array   我的数组
+     // var arr= new Array('a','b','c');      //一个数组（js自带）
+     // console.log(arr);
+      var arr= new myArray('a','b','c','d',4,5,6,7,8,9,1,2,3);
+      console.log(arr);
+      function myArray(){
+        for(var i=0;i<arguments.length;i++){
+            this[i] = arguments[i];
+        }
+        this.length = arguments.length
+      }
+```
+
+### 3.  prototype
+
+
 

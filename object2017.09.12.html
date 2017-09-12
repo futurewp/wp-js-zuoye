@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>object0912</title>
+</head>
+<body>
+	<script>
+		function student(){
+			this.name = 'zhangsan';
+			this.age = 22;
+			this.sex = 'nv';
+			this.say= function(){
+				alert(1);
+			}
+		}
+		let zhangsan=new student();
+		let lisi=new student();
+		console.log(zhangsan);
+		console.log(lisi);
+
+		zhangsan.classes='wuif1707-1'
+		lisi.study=function(){
+             alert('学习')
+		}
+
+		lisi.name='lisi'
+ 
+
+    function iphone(name,color,size){
+    	this.name=name;
+    	this.color=color;
+    	this.size=size;
+    	this.calls=function(){
+    		alert('打电话')
+    	}
+    	this.msg=function(){
+    		alert('发短信')
+    	}
+    	this.photo=function(){
+    		alert('照相机')
+    	}
+    }
+     
+     let iphone8= new iphone('iphone8','#fff','5.7寸');
+     let iphone8_plus= new iphone('iphone8 plus','#CCC','7.5寸');
+     let iphone8_x= new iphone('iphone8 x','#000','4.7寸');
+
+     console.log(iphone8);
+     console.log(iphone8_plus);
+     console.log(iphone8_x);
+
+     // iphone8.photo()
+     // iphone.sss   //访问没有的属性  不会报错，默认undefined；
+     // iphone.sss()   //访问没有的属性  报错
+
+//遍历
+     for (let i in iphone8){
+     	console.log(`${i}=${iphone8[i]}`)
+     }
+     console.log(iphone8.constructor)
+ 
+
+      let zhangsan1={
+      "age":18,
+      "sex":'nan',
+      name:'zhangsan',        //属性的引号 可加可不加
+      say:function(){
+        alert(1)
+      }
+    };
+
+console.log(zhangsan);
+zhangsan.say();
+//类
+class Student2{
+	constructor(){
+		this.name='zhangsan';
+		this.age=18;
+		this.say=function(){
+			alert('abcd')
+		}
+	}
+	study(){
+		alert('学习')
+	}
+	play(){
+		alert('play')
+	}
+}	
+
+var zhangsan2= new Student2();
+zhangsan2.say()
+zhangsan2.study()
+zhangsan2.play()
+	</script>
+
+</body>
+</html>
