@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>string0913</title>
+</head>
+<body>
+	<script>
+		let str='asaddad';
+		console.log(str.__proto__);
+		console.log(str.length);
+		console.log(str.constructor);
+		
+		console.log(str.charAt(1));
+		console.log(str.charCodeAt(1));
+		console.log(String.fromCharCode(115));
+
+		console.log(str.indexOf('d')); //3
+		console.log(str.indexOf('e'));  //-1
+		console.log(str.lastIndexOf('d')); //6
+		console.log(str.lastIndexOf('e'));  //-1
+		
+		console.log(str.includes('d')); //true
+		console.log(str.includes('e')); //false
+
+		console.log(str.slice(0,3));//asa
+		console.log(str);//asaddad 
+		console.log(str.slice(0,-1));//asadda
+		console.log(str.slice(0,str.length-1));//asadda
+		console.log(str.slice(3));//ddad
+		console.log(str.substr(0,3));//asa
+		console.log(str.substr(3));//ddad
+
+		console.log(str.replace('asa','ee'));//eeddad
+        console.log(str);//asaddad
+        
+        console.log(str.repeat(2));//asaddadasaddad
+        
+        console.log(str.match('ad'));//["ad", index: 2, input: "asaddad"]
+        console.log(str.match('e'));//null
+
+        let strr='  asaddad  ';
+        console.log(strr);//  asaddad  
+        console.log(strr.trim());//asaddad
+        console.log(strr.trimLeft());//asaddad        
+        console.log(strr.trimRight());//  asaddad
+
+        let str2='a-b-c-d'
+        console.log(str2.split('-',2));//["a", "b"]
+        console.log(str2.split('-',4));//["a", "b", "c", "d"]
+        console.log(str2.split('-',6));//["a", "b", "c", "d"]
+        let str3='a,b,c,d'
+        console.log(str3.toUpperCase());//A,B,C,D
+        let str4='A,B,C,D'
+        console.log(str4.toLowerCase());//a,b,c,d
+
+
+//将字符串中某一特定字符串全部替换 
+        function replaceAll(str,rstr,rep){
+        	//方法一：使被替换的字符数与被替换的字符数相同
+        	// let aaa = '';
+        	// for(let i=0;i<rstr.length;i++){
+        	// 	aaa+=rep;
+        	// }
+        	//方法二：使被替换的字符数与被替换的字符数相同
+        	let aaa=rep.repeat(rstr.length)
+
+        	while(str.includes(rstr)){
+        		str=str.replace(rstr,aaa);
+        	}
+        	return str;
+        }
+        //str='asaddad'
+        var sss=replaceAll(str,'ad','e');
+        console.log(sss);//'aseedee'
+
+        console.log(str.match('d'));//asaddadasaddad
+
+//找baidu在字符串中的所有位置下标
+//      方法一：
+        let url = "https://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.com"
+        function position(url,bd,rep){
+        	let newarr=[];
+        	let aaa=rep.repeat(bd.length);
+           while(url.includes(bd)){
+           	 // newarr[newarr.length]=url.indexOf(bd);
+           	 newarr.push(url.indexOf(bd));
+           	 url=url.replace(bd,aaa)
+           }
+           return newarr;
+        }
+        console.log(position(url,'baidu','*'));
+//      方法二：
+        function pos(url,bd){
+        	let arr=[];
+        	for(let i=0;i<url.length;i++){
+                 let bbb=url.slice(i,i+5);
+                 if(bbb==bd){
+                 	arr.push(i)
+                 }
+        	}
+        	return arr;
+        }
+        console.log(pos(url,'baidu'));
+	</script>
+</body>
+</html>

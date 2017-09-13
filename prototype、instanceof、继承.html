@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>prototype、instanceof、继承</title>
+</head>
+<body>
+	<script>
+//prototype
+		function sss(){
+			this.name='wp';
+			this.age=20;
+			this.study=function(){
+				alert('学习')
+			}
+		}
+
+		//每个构造函数都有一个属性prototype，也叫原型对象（原型）
+        sss.prototype={
+           eat:function(){        
+             alert('吃')
+           },
+           //也可以在构造函数原型对象中放属性
+           classes:'wuif1707-1 '   
+        }
+		
+		var wp=new sss();
+		console.log(wp);
+		var wp1=new sss();
+		console.log(wp1);
+		wp.study();
+		wp.eat();
+		
+		//添加方法，可以在prototype外面写方法，（把构造函数名.prototype当做对象名）
+		sss.prototype.play = function(){
+          alert('玩')
+        }
+        wp.play();
+
+// delete
+    // delete 对象名.方法/属性；  //删除一个对象的方法和属性
+    // 注意：删除方法时，如果方法在原型中，则其他对象也无法用此方法
+    // 对象名=null；   //删除一个对象
+        // delete wp.name;
+        // console.log(wp);
+        // delete sss.prototype.eat;
+        // wp.study();
+		// wp.eat();
+        // wp1=null;
+        // console.log(wp1);
+//instanceof
+		function ttt(){
+			this.name='wh';
+			this.age=20;
+		}
+		function vvv(){
+			this.name='zs';
+			this.age=20;
+		}
+
+		let wh = new ttt();
+		let zs = new vvv();
+		//判断对象是否是从某一构造函数中实体化（具体化）出来的
+		console.log(wh instanceof ttt);   //true
+		console.log(zs instanceof ttt);   //false
+//继承
+		function person(){
+			this.name='wp';
+			this.age=20;
+			this.study=function(){
+				alert('学习')
+			}
+			this.aa = function(){
+				alert('person构造函数中的aa')
+			}
+		}
+		function student(){
+			this.classes='wuif1707-1';
+			this.number='wuif1707001';
+			this.skill=function(){
+				alert('fullstuck')
+			}
+			this.aa = function(){
+				alert('student构造函数中的aa')
+			}
+		}
+
+		student.prototype = new person();
+        student.prototype.aa = function(){
+        	alert('student原型中的aa')
+        }
+        // let ww = new person();
+        //如何让ls也有ww的属性---继承(见上五行)
+        let ls = new student();
+       
+
+        console.log(ls);
+        ls.aa();
+//proto
+        console.log(ls.__proto__==student.prototype.__proto__);
+
+
+	</script>
+</body>
+</html>

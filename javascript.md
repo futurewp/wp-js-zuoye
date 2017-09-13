@@ -1844,7 +1844,297 @@ for(let.方法名和属性名的概括..in.对象名..){
       }
 ```
 
-### 3.  prototype
+# 2017.09.13
+
+#### 2.5 prototype---原型对象
+
+所有new 出来的对象都有此构造函数
+
+ 作用：节省内存（代码段）；结构看起来清晰
+
+```JS
+1.每个构造函数都有一个属性prototype，也叫原型对象（原型）
+
+  构造函数名.prototype={
+      方法名:function(){        //构造函数原型对象中放方法
+        //方法
+      },
+      属性名:属性值    //也可以在构造函数原型对象中放属性
+}
+
+2.添加方法，可以在prototype外面写方法，（把构造函数名.prototype当做对象名）
+     构造函数名.prototype.方法 = function(){
+       //方法
+     }
+     
+ 例：
+		function sss(){
+			this.name='wp';
+			this.age=20;
+			this.study=function(){
+				alert('学习')
+			}
+		}
+
+		//每个构造函数都有一个属性prototype，也叫原型对象（原型）
+        sss.prototype={
+           eat:function(){        
+             alert('吃')
+           },
+           //也可以在构造函数原型对象中放属性
+           classes:'wuif1707-1 '   
+        }
+		
+        var wp=new sss();
+		console.log(wp);
+		wp.study();
+		wp.eat();
+		
+        //添加方法，可以在prototype外面写方法，（把构造函数名.prototype当做对象名）
+		sss.prototype.play = function(){
+          alert('玩')
+        }
+        wp.play();
+
+```
+
+#### 2.6 删除方法/属性/对象 delete
+
+```js
+    1.delete 对象名.方法/属性;  //删除一个对象的方法和属性
+        delete wp.name;
+        alert(wp.name)      //undefined
+        console.log(wp);   //name 没有 
+        delete eat;
+        wp.study();         //报错
+    （注意：删除方法时，如果方法在原型中，则其他对象也无法用此方法）
+        delete sss.prototype.eat;
+        wp.eat();        //报错
+    2.对象名=null;  //删除一个对象
+         wp1=null;
+        console.log(wp1); //null
+```
+#### 2.7 instanceof  
+
+对象名 instanceof  构造函数; //判断一个对象是否是从某个构造函数中实例化出来的
+
+```JS
+例：
+		function ttt(){
+			this.name='wh';
+			this.age=20;
+		}
+		function vvv(){
+			this.name='zs';
+			this.age=20;
+		}
+
+		let wh = new ttt();
+		let zs = new vvv();
+		//判断对象是否是从某一构造函数中实体化（具体化）出来的
+		console.log(wh instanceof ttt);   //true
+		console.log(zs instanceof ttt);   //false
+```
+
+#### 2.8 继承
+
+通过'原型对象'来实现继承
+
+继承者的构造函数.prototype = new 被继承者的构造函数;
+
+ //访问的优先级：
+
+构造函数的方法和属性     >    原型对象中的属性和方法
+
+继承者本身的方法和属性  >     被继承的方法和属性 
+
+```JS
+//继承
+		function person(){
+			this.name='wp';
+			this.age=20;
+			this.study=function(){
+				alert('学习')
+			}
+			this.aa = function(){
+				alert('person构造函数中的aa')
+			}
+		}
+		function student(){
+			this.classes='wuif1707-1';
+			this.number='wuif1707001';
+			this.skill=function(){
+				alert('fullstuck')
+			}
+			this.aa = function(){
+				alert('student构造函数中的aa')
+			}
+		}
+
+		student.prototype = new person();
+        student.prototype.aa = function(){
+        	alert('student原型中的aa')
+        }
+        // let ww = new person();
+        //如何让ls也有ww的属性---继承(见上五行)
+        let ls = new student();
+       
+
+        console.log(ls);
+        ls.aa();
+注：创建对象  要在 继承 后
+```
+
+##### 2.9 __proto__
+
+```JS
+对象名.__proto__  指向构造函数原型，相当于 对象名.__proto__==构造函数.prototype ；
+构造函数.prototype.__proto__ 指向构造函数,
+```
 
 
+
+### 3.内置对象
+
+#### 3.1 分类
+
+1. ##### 基本语法对象
+
+      3.1.1 string 
+
+   ```js
+   		let str='asaddad';
+   		console.log(str.__proto__);
+   属性：
+   length 返回字符串的长度，不区分中英文，（只读  不能设置）
+   		console.log(str.length);    //7
+   constructor  返回构造函数
+   		console.log(str.constructor);//
+   方法：
+   //查找类
+   str.charAt(num);    返回指定位置的字符
+           console.log(str.charAt(1));  //s
+   str.charCodeAt(num);  返回指定位置字符对应的Unicode编码
+   		console.log(str.charCodeAt(1)); //115
+   String.fromCharCode(Unicode编码);  返回Unicode编码所对应的字符串
+   		console.log(String.fromCharCode(115));  //s
+   //位置类
+   indexOf()            字符首次出现的位置；当没有这个字符时出现-1
+           console.log(str.indexOf('d')); //3
+   		console.log(str.indexOf('e'));  //-1
+   lastIndexOf()        字符最后一次出现的位置；当没有这个字符时出现-1
+   		console.log(str.lastIndexOf('d')); //6
+   		console.log(str.lastIndexOf('e'));  //-1
+   可以模拟某一特定值是否存在  存在（有位置下标）不存在（-1）
+   //存在
+   includes()           判断字符串中是否存在某一特定值  存在true、不存在false
+   		console.log(str.includes('d')); //true
+   		console.log(str.includes('e')); //false
+   //截取
+   slice(a,b);         a:开始截取时的位置下标  b:结束截取的位置下标（不包含该下标）；
+   		console.log(str.slice(0,3));//asa
+                       原字符串不会改变；
+   		console.log(str);//asaddad 
+                       b可以为负数，是从末尾计数；
+   		console.log(str.slice(0,-1));//asadda
+   		console.log(str.slice(0,str.length-1));//asadda
+                       省略掉结束位置，从指定的开始位置，截取到末尾；
+   		console.log(str.slice(3));//ddad
+   substring(a,b);      规则与  slice(a,b); 相同；只是不支持 负数；
+   substr(x,y);        x:开始截取时的位置下标  y:截取长度；
+   		console.log(str.substr(0,3));//asa
+                       如果没有y，则默认截取到末尾；
+   		console.log(str.substr(3));//ddad
+   //替换
+   replace(c,d)           c:被替换的字符串 d：替换的字符串 只能替换一个
+   		console.log(str.replace('asa','ee'));//eeddad
+           console.log(str);//asaddad
+   //重复
+   repeat(重复次数)      将某字符串重复多次
+           console.log(str.repeat(2));//asaddadasaddad
+   //匹配（正则）
+   match(rstr)        在某一字符串中匹配另一个字符串rstr；
+                      匹配成功： 返回 数组(0,index,input)
+           console.log(str.match('ad'));//["ad", index: 2, input: "asaddad"]
+                      匹配失败： 返回 null
+           console.log(str.match('e'));//null
+   search()            查找
+   //去空
+           let strr='  asaddad  ';
+           console.log(strr);//  asaddad  
+   trim()                  去掉字符串两端的空格；去完后对原字符串无影响
+           console.log(strr.trim());//asaddad
+   trimLeft()              去掉字符串左端的空格；去完后对原字符串无影响
+           console.log(strr.trimLeft());//asaddad        
+   trimRight()             去掉字符串右端的空格；去完后对原字符串无影响
+           console.log(strr.trimRight());//  asaddad
+   //转换
+   split(分割位置，length) 把字符串转换成数组；
+           let str2='a-b-c-d'
+           console.log(str2.split('-',2));//["a", "b"]
+           console.log(str2.split('-',4));//["a", "b", "c", "d"]
+           console.log(str2.split('-',6));//["a", "b", "c", "d"]
+   str2.toUpperCase()     把字符串转换成大写；
+           let str3='a,b,c,d'
+           console.log(str3.toUpperCase());//A,B,C,D
+   str2.toLowerCase()     把字符串转换成小写；
+           let str4='A,B,C,D'
+           console.log(str4.toLowerCase());//a,b,c,d
+
+   例1：将字符串中某一特定字符串全部替换     
+           function replaceAll(str,rstr,rep){
+           	//方法一：使被替换的字符数与被替换的字符数相同
+           	// let aaa = '';
+           	// for(let i=0;i<rstr.length;i++){
+           	// 	aaa+=rep;
+           	// }
+           	//方法二：使被替换的字符数与被替换的字符数相同
+           	let aaa=rep.repeat(rstr.length)
+
+           	while(str.includes(rstr)){
+           		str=str.replace(rstr,aaa);
+           	}
+           	return str;
+           }
+           //str='asaddad'
+           var sss=replaceAll(str,'ad','e');
+           console.log(sss);//'aseedee'
+
+           console.log(str.match('d'));//asaddadasaddad
+           
+           let str2='a-b-c-d'
+           console.log(str2.split('-'));//asaddadasaddad
+           console.log(str2.toUpperCase());//asaddadasaddad
+           console.log(str2.toLowerCase());//asaddadasaddad
+   例2. 找baidu在字符串中的所有位置下标
+   //      方法一：
+           let url = "https://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.com"
+           function position(url,bd,rep){
+           	let newarr=[];
+           	let aaa=rep.repeat(bd.length);
+              while(url.includes(bd)){
+              	 // newarr[newarr.length]=url.indexOf(bd);
+              	 newarr.push(url.indexOf(bd));
+              	 url=url.replace(bd,aaa)
+              }
+              return newarr;
+           }
+           console.log(position(url,'baidu','*'));
+   //      方法二：
+           function pos(url,bd){
+           	let arr=[];
+           	for(let i=0;i<url.length;i++){
+                    let bbb=url.slice(i,i+5);
+                    if(bbb==bd){
+                    	arr.push(i)
+                    }
+           	}
+           	return arr;
+           }
+           console.log(pos(url,'baidu'));
+   ```
+
+2. 浏览器对象
+
+#### 
 
