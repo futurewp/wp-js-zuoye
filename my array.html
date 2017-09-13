@@ -49,8 +49,8 @@
       console.log(r5);
 // 映射  将数组内的每个元素翻倍
       var arr8= new myArray(1,2,3,4,5);
-      var r6=arr8.map(function(value){ 
-      	return value*2;
+      var r6=arr8.map(function(value,index){ 
+      	return value*index;
       });
       console.log(r6);
 // 把数组元素转化为字符串
@@ -115,9 +115,9 @@
        }
       //reverse 将数组水平翻转180度成为一个新数组
       this.reverse = function(){
-      	var newarr=[];
+      	var newarr=new myArray();
         for(let i=this.length-1;i>=0;i--){
-              newarr[newarr.length]=this[i];
+              newarr.push(this[i]);
         }
         return newarr;
         }
@@ -139,21 +139,21 @@
       	}
       	return true;
       }
-     // 将数组内大于3元素找出来----回调函数
+     // 筛选 将数组内大于3元素找出来----回调函数filter
      this.filter = function(fn){
-     	var newarr=[];
+     	  var newarr=new myArray();
         for (let i=0;i<this.length;i++){
           if(fn(this[i])){
-            newarr[newarr.length]=this[i];
+            newarr.push(this[i]);
           }
         }
         return newarr;
      }
     // 映射  将数组内的每个元素翻倍
     this.map = function(fn){
-       var newarr=[];
+       var newarr=new myArray();
        for (let i=0;i<this.length;i++){
-         newarr[newarr.length]=fn(this[i]);
+         newarr.push(fn(this[i],i,this));
        }
        return newarr;
     }
@@ -201,10 +201,10 @@
     }
      //去空：将原数组的未定义空格取消掉 empty
      this.empty = function(){
-        var newarr=[];
-        for(var i=0;i<this.length;i++){
+        var newarr= new myArray();
+        for(let i=0;i<this.length;i++){
         	if((this[i])!==undefined){
-        		newarr[newarr.length]=this[i];
+        		newarr.push(this[i]);
         	}
         }
         return newarr;
