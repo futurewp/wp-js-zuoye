@@ -975,6 +975,85 @@ for(var i=0;i<arr.length;i++){
         console.log(arr1);     
 ```
 
+##### 7.4数组去重(delRepeat)
+
+```JS
+//数组去重  方法一：
+//    比较newarr中的当前元素是否有重复的元素
+        let arr6=[1,2,3,4,5,1,2,3];
+        function delRepeat(arr6){
+          let newarr=[];
+          for(let i=0;i<arr6.length;i++){
+          	if(newarr.includes(arr6[i])){
+          		continue;
+          	}
+          	newarr.push(arr6[i]);
+          }
+          return newarr
+        }
+        let res=delRepeat(arr6);
+        console.log(res);//[1, 2, 3, 4, 5]
+//数组去重  方法二：
+//    比较arr6中的当前元素是否有重复的元素
+        function delRepeat1(arr6){
+          let newarr=[];
+          for(let i=0;i<arr6.length;i++){
+          	let flag = true;           //目的：让每个人i有一个判断依据
+          	for(let j=i+1;j<arr6.length;j++){
+          	   if(arr6[i]==arr6[j]){
+          	   	   flag = false;
+          	   	   break;
+          	   }
+          	}
+          	if(flag==true){
+          		newarr.push(arr6[i]);
+          	}
+          } 
+            return newarr;
+        }
+        let res1=delRepeat1(arr6);
+        console.log(res1);// [4, 5, 1, 2, 3]
+```
+
+##### 7.5 从数组中取任意个元素
+
+```JS
+任意：用到了Math.random()  求随机数
+//方法一：
+        var arr=[1,2,3,4,5,6,7,8];
+        function ry(arr,n){
+        	var newarr=[];
+        	for(let i=0;i<n;i++){
+        		let x=Math.floor(Math.random()*arr.length);
+        		if(newarr.includes(arr[x])){
+        			i--;
+        		}else{
+        		   newarr.push(arr[x])	
+        		}  
+        	}
+        	return newarr;
+        }	
+
+        console.log(ry(arr,5));
+// 方法二：
+        function ry1(arr,n){
+        	var newarr=[];
+        	while(newarr.length<n){
+        		let x=Math.floor(Math.random()*arr.length);
+        		while(newarr.includes(arr[x])){
+                    x=Math.floor(Math.random()*arr.length);
+        		}
+        		newarr.push(arr[x])	
+        		 
+        	}
+        	return newarr;
+        }	
+
+        console.log(ry1(arr,5));
+```
+
+
+
 # 2017.09.07
 
 ## 七.函数
@@ -1867,7 +1946,7 @@ for(let.方法名和属性名的概括..in.对象名..){
        //方法
      }
      
- 例：
+ 例1：
 		function sss(){
 			this.name='wp';
 			this.age=20;
@@ -1895,7 +1974,20 @@ for(let.方法名和属性名的概括..in.对象名..){
           alert('玩')
         }
         wp.play();
-
+例2：
+//把"数组去重"变成"数组的方法"
+Array.prototype.delRepeat= function(){
+          let newarr= new Array();
+          for(let i=0;i<this.length;i++){
+            if(newarr.includes(this[i])){
+              continue;
+            }
+            newarr.push(this[i]);
+          }
+          return newarr
+     }   
+      let arr8= new Array(1,2,3,4,5,2,3,4);
+      console.log(arr8.delRepeat());// [1, 2, 3, 4, 5]
 ```
 
 #### 2.6 删除方法/属性/对象 delete
@@ -1987,6 +2079,8 @@ for(let.方法名和属性名的概括..in.对象名..){
 
 ##### 2.9 __proto__
 
+查看属性方法
+
 ```JS
 对象名.__proto__  指向构造函数原型，相当于 对象名.__proto__==构造函数.prototype ；
 构造函数.prototype.__proto__ 指向构造函数,
@@ -1998,143 +2092,339 @@ for(let.方法名和属性名的概括..in.对象名..){
 
 #### 3.1 分类
 
-1. ##### 基本语法对象
+基本语法对象
 
-      3.1.1 string 
+#####    3.1.1 string 
 
-   ```js
-   		let str='asaddad';
-   		console.log(str.__proto__);
-   属性：
-   length 返回字符串的长度，不区分中英文，（只读  不能设置）
-   		console.log(str.length);    //7
-   constructor  返回构造函数
-   		console.log(str.constructor);//
-   方法：
-   //查找类
-   str.charAt(num);    返回指定位置的字符
-           console.log(str.charAt(1));  //s
-   str.charCodeAt(num);  返回指定位置字符对应的Unicode编码
-   		console.log(str.charCodeAt(1)); //115
-   String.fromCharCode(Unicode编码);  返回Unicode编码所对应的字符串
-   		console.log(String.fromCharCode(115));  //s
-   //位置类
-   indexOf()            字符首次出现的位置；当没有这个字符时出现-1
-           console.log(str.indexOf('d')); //3
-   		console.log(str.indexOf('e'));  //-1
-   lastIndexOf()        字符最后一次出现的位置；当没有这个字符时出现-1
-   		console.log(str.lastIndexOf('d')); //6
-   		console.log(str.lastIndexOf('e'));  //-1
-   可以模拟某一特定值是否存在  存在（有位置下标）不存在（-1）
-   //存在
-   includes()           判断字符串中是否存在某一特定值  存在true、不存在false
-   		console.log(str.includes('d')); //true
-   		console.log(str.includes('e')); //false
-   //截取
-   slice(a,b);         a:开始截取时的位置下标  b:结束截取的位置下标（不包含该下标）；
-   		console.log(str.slice(0,3));//asa
-                       原字符串不会改变；
-   		console.log(str);//asaddad 
-                       b可以为负数，是从末尾计数；
-   		console.log(str.slice(0,-1));//asadda
-   		console.log(str.slice(0,str.length-1));//asadda
-                       省略掉结束位置，从指定的开始位置，截取到末尾；
-   		console.log(str.slice(3));//ddad
-   substring(a,b);      规则与  slice(a,b); 相同；只是不支持 负数；
-   substr(x,y);        x:开始截取时的位置下标  y:截取长度；
-   		console.log(str.substr(0,3));//asa
-                       如果没有y，则默认截取到末尾；
-   		console.log(str.substr(3));//ddad
-   //替换
-   replace(c,d)           c:被替换的字符串 d：替换的字符串 只能替换一个
-   		console.log(str.replace('asa','ee'));//eeddad
-           console.log(str);//asaddad
-   //重复
-   repeat(重复次数)      将某字符串重复多次
-           console.log(str.repeat(2));//asaddadasaddad
-   //匹配（正则）
-   match(rstr)        在某一字符串中匹配另一个字符串rstr；
-                      匹配成功： 返回 数组(0,index,input)
-           console.log(str.match('ad'));//["ad", index: 2, input: "asaddad"]
-                      匹配失败： 返回 null
-           console.log(str.match('e'));//null
-   search()            查找
-   //去空
-           let strr='  asaddad  ';
-           console.log(strr);//  asaddad  
-   trim()                  去掉字符串两端的空格；去完后对原字符串无影响
-           console.log(strr.trim());//asaddad
-   trimLeft()              去掉字符串左端的空格；去完后对原字符串无影响
-           console.log(strr.trimLeft());//asaddad        
-   trimRight()             去掉字符串右端的空格；去完后对原字符串无影响
-           console.log(strr.trimRight());//  asaddad
-   //转换
-   split(分割位置，length) 把字符串转换成数组；
-           let str2='a-b-c-d'
-           console.log(str2.split('-',2));//["a", "b"]
-           console.log(str2.split('-',4));//["a", "b", "c", "d"]
-           console.log(str2.split('-',6));//["a", "b", "c", "d"]
-   str2.toUpperCase()     把字符串转换成大写；
-           let str3='a,b,c,d'
-           console.log(str3.toUpperCase());//A,B,C,D
-   str2.toLowerCase()     把字符串转换成小写；
-           let str4='A,B,C,D'
-           console.log(str4.toLowerCase());//a,b,c,d
+```js
+		let str='asaddad';
+		console.log(str.__proto__);
+属性：
+length 返回字符串的长度，不区分中英文，（只读  不能设置）
+		console.log(str.length);    //7
+constructor  返回构造函数
+		console.log(str.constructor);//
+方法：
+//查找类
+str.charAt(num);    返回指定位置的字符
+        console.log(str.charAt(1));  //s
+str.charCodeAt(num);  返回指定位置字符对应的Unicode编码
+		console.log(str.charCodeAt(1)); //115
+String.fromCharCode(Unicode编码);  返回Unicode编码所对应的字符串
+		console.log(String.fromCharCode(115));  //s
+//位置类
+indexOf()            字符首次出现的位置；当没有这个字符时出现-1
+        console.log(str.indexOf('d')); //3
+		console.log(str.indexOf('e'));  //-1
+lastIndexOf()        字符最后一次出现的位置；当没有这个字符时出现-1
+		console.log(str.lastIndexOf('d')); //6
+		console.log(str.lastIndexOf('e'));  //-1
+可以模拟某一特定值是否存在  存在（有位置下标）不存在（-1）
+//存在
+includes()           判断字符串中是否存在某一特定值  存在true、不存在false
+		console.log(str.includes('d')); //true
+		console.log(str.includes('e')); //false
+//截取
+slice(a,b);         a:开始截取时的位置下标  b:结束截取的位置下标（不包含该下标）；
+		console.log(str.slice(0,3));//asa
+                    原字符串不会改变；
+		console.log(str);//asaddad 
+                    b可以为负数，是从末尾计数；
+		console.log(str.slice(0,-1));//asadda
+		console.log(str.slice(0,str.length-1));//asadda
+                    省略掉结束位置，从指定的开始位置，截取到末尾；
+		console.log(str.slice(3));//ddad
+substring(a,b);      规则与  slice(a,b); 相同；只是不支持 负数；
+substr(x,y);        x:开始截取时的位置下标  y:截取长度；
+		console.log(str.substr(0,3));//asa
+                    如果没有y，则默认截取到末尾；
+		console.log(str.substr(3));//ddad
+//替换
+replace(c,d)           c:被替换的字符串 d：替换的字符串 只能替换一个
+		console.log(str.replace('asa','ee'));//eeddad
+        console.log(str);//asaddad
+//重复
+repeat(重复次数)      将某字符串重复多次
+        console.log(str.repeat(2));//asaddadasaddad
+//匹配（正则）
+match(rstr)        在某一字符串中匹配另一个字符串rstr；
+                   匹配成功： 返回 数组(0,index,input)
+        console.log(str.match('ad'));//["ad", index: 2, input: "asaddad"]
+                   匹配失败： 返回 null
+        console.log(str.match('e'));//null
+search()            查找
+//去空
+        let strr='  asaddad  ';
+        console.log(strr);//  asaddad  
+trim()                  去掉字符串两端的空格；去完后对原字符串无影响
+        console.log(strr.trim());//asaddad
+trimLeft()              去掉字符串左端的空格；去完后对原字符串无影响
+        console.log(strr.trimLeft());//asaddad        
+trimRight()             去掉字符串右端的空格；去完后对原字符串无影响
+        console.log(strr.trimRight());//  asaddad
+//转换
+split(分割位置，length) 把字符串转换成数组；
+        let str2='a-b-c-d'
+        console.log(str2.split('-',2));//["a", "b"]
+        console.log(str2.split('-',4));//["a", "b", "c", "d"]
+        console.log(str2.split('-',6));//["a", "b", "c", "d"]
+str2.toUpperCase()     把字符串转换成大写；
+        let str3='a,b,c,d'
+        console.log(str3.toUpperCase());//A,B,C,D
+str2.toLowerCase()     把字符串转换成小写；
+        let str4='A,B,C,D'
+        console.log(str4.toLowerCase());//a,b,c,d
 
-   例1：将字符串中某一特定字符串全部替换     
-           function replaceAll(str,rstr,rep){
-           	//方法一：使被替换的字符数与被替换的字符数相同
-           	// let aaa = '';
-           	// for(let i=0;i<rstr.length;i++){
-           	// 	aaa+=rep;
-           	// }
-           	//方法二：使被替换的字符数与被替换的字符数相同
-           	let aaa=rep.repeat(rstr.length)
+例1：将字符串中某一特定字符串全部替换     
+        function replaceAll(str,rstr,rep){
+        	//方法一：使被替换的字符数与被替换的字符数相同
+        	// let aaa = '';
+        	// for(let i=0;i<rstr.length;i++){
+        	// 	aaa+=rep;
+        	// }
+        	//方法二：使被替换的字符数与被替换的字符数相同
+        	let aaa=rep.repeat(rstr.length)
 
-           	while(str.includes(rstr)){
-           		str=str.replace(rstr,aaa);
-           	}
-           	return str;
+        	while(str.includes(rstr)){
+        		str=str.replace(rstr,aaa);
+        	}
+        	return str;
+        }
+        //str='asaddad'
+        var sss=replaceAll(str,'ad','e');
+        console.log(sss);//'aseedee'
+
+        console.log(str.match('d'));//asaddadasaddad
+        
+        let str2='a-b-c-d'
+        console.log(str2.split('-'));//asaddadasaddad
+        console.log(str2.toUpperCase());//asaddadasaddad
+        console.log(str2.toLowerCase());//asaddadasaddad
+例2. 找baidu在字符串中的所有位置下标
+//      方法一：
+        let url = "https://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.com"
+        function position(url,bd,rep){
+        	let newarr=[];
+        	let aaa=rep.repeat(bd.length);
+           while(url.includes(bd)){
+           	 // newarr[newarr.length]=url.indexOf(bd);
+           	 newarr.push(url.indexOf(bd));
+           	 url=url.replace(bd,aaa)
            }
-           //str='asaddad'
-           var sss=replaceAll(str,'ad','e');
-           console.log(sss);//'aseedee'
+           return newarr;
+        }
+        console.log(position(url,'baidu','*'));
+//      方法二：
+        function pos(url,bd){
+        	let arr=[];
+        	for(let i=0;i<url.length;i++){
+                 let bbb=url.slice(i,i+5);
+                 if(bbb==bd){
+                 	arr.push(i)
+                 }
+        	}
+        	return arr;
+        }
+        console.log(pos(url,'baidu'));
+```
+##### 3.1.2 Array
 
-           console.log(str.match('d'));//asaddadasaddad
-           
-           let str2='a-b-c-d'
-           console.log(str2.split('-'));//asaddadasaddad
-           console.log(str2.toUpperCase());//asaddadasaddad
-           console.log(str2.toLowerCase());//asaddadasaddad
-   例2. 找baidu在字符串中的所有位置下标
-   //      方法一：
-           let url = "https://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.comhttps://www.baidu.com"
-           function position(url,bd,rep){
-           	let newarr=[];
-           	let aaa=rep.repeat(bd.length);
-              while(url.includes(bd)){
-              	 // newarr[newarr.length]=url.indexOf(bd);
-              	 newarr.push(url.indexOf(bd));
-              	 url=url.replace(bd,aaa)
-              }
-              return newarr;
-           }
-           console.log(position(url,'baidu','*'));
-   //      方法二：
-           function pos(url,bd){
-           	let arr=[];
-           	for(let i=0;i<url.length;i++){
-                    let bbb=url.slice(i,i+5);
-                    if(bbb==bd){
-                    	arr.push(i)
-                    }
-           	}
-           	return arr;
-           }
-           console.log(pos(url,'baidu'));
-   ```
+```js
+     1. let i=0;//全局作用域
+		for(let i=0;i<arr.length;i++){     //独立作用域
+             let i=10                      //块级作用域
+		}
+	 2. //Array(x) 是数组的构造函数, 当参数x是数字且只有一个时----代表数组的长度length
+		let arr1 = new Array('a','b','c','d');
+		console.log(arr1);                     //['a','b','c','d']
+		let arr2 = new Array(3);
+		console.log(arr2);                     //[empty × 3]
+		//想让参数x表示数组元素时，可以用以下方法：
+		//.of()是构造函数Array的方法
+		let arr3 =Array.of(3);
+		console.log(arr3);                     //[3]
 
-2. 浏览器对象
+
+//属性
+arr.length=0;      //删除数组（arr.lengtn 可读可写）
+arr.constructor        //返回构造函数 Array()
+//方法
+let arr=['a','b','c','d'];
+//添加和删除
+arr.push()    //在arr数组的末尾添加一个或多个元素,返回值为新数组的长度
+		arr.push(1,2,3,4);//arr=["a", "b", "c", "d", 1, 2, 3, 4,]
+arr.unshift() //在arr数组的开头添加一个或多个元素,返回值为新数组的长度
+		arr.unshift(1,2,3,4);//arr=[1, 2, 3, 4, "a", "b", "c", "d", 1, 2, 3, 4]
+arr.pop()     // 删除arr数组的最后一个元素，返回值为被删除的元素，()内无参数
+		arr.pop();//arr=[1, 2, 3, 4, "a", "b", "c", "d", 1, 2, 3]
+		arr.pop();//arr=[1, 2, 3, 4, "a", "b", "c", "d", 1, 2]
+arr.shift()  // 删除arr数组的最第一个元素，返回值为被删除的元素，()内无参数
+		arr.shift()//arr=[2, 3, 4, "a", "b", "c", "d", 1, 2]
+		arr.shift()//arr=[3, 4, "a", "b", "c", "d", 1, 2]
+//万能的添加和删除
+arr.splice(pos,num,...rest) // pos---删除位置  num---删除个数  ...---需要添加的元素
+                   //从指定位置（pos）删除num个元素，在pos位置...rest添加进去
+        arr.splice(1,2,1,2);//arr=[3, 1, 2, "b", "c", "d", 1, 2]
+                 //返回值是被删除的元素组成的数组。如果删除个数为0，则返回空数组
+arr.splice(pos,num)  //单独实现删除
+		arr.splice(1,2); //arr=[3, "b", "c", "d", 1, 2] 
+arr.splice(pos,0，...rest)  //单独实现添加
+        arr.splice(1,0,3,4);//arr=[3, 3, 4, "b", "c", "d", 1, 2]
+//合并
+arr.concat(arr);     //合并一个或多个数组，返回值为合并后的新数组，并对原数组无影响
+        let arr4 = new Array('a','b','c','d');
+        let arr5 = new Array(1,2,3,4);
+        console.log(arr5.concat(arr4));[1, 2, 3, 4, "a", "b", "c", "d"]
+//转换
+arr.join();       //把数组转化为字符串，()内的参数为连接符  例： '-';
+        let arr5 = new Array(1,2,3,4);//[1, 2, 3, 4]
+        console.log(arr5.join('-'));//1-2-3-4
+                  //当()内的参数为空时，默认为','连接
+        console.log(arr5.join());//1,2,3,4
+//翻转
+arr.reverse();      //数组翻转180度成为新数组；
+        let arr6 = new Array(1,2,3,4);//[1, 2, 3, 4]
+        console.log(arr6.reverse());//[4, 3, 2, 1]
+//排序-----以下都用到回调函数
+arr.sort();        //升序排序（按Unicode编码排序--先比较第一位，在比较第二位），改变原数组
+       let ar1=[1,21,31,23,3,2];
+       ar1.sort();
+       console.log(ar1);//[1, 2, 21, 23, 3, 31]
+
+arr.sort(function(a,b){
+  return a-b<0
+});                //按大小进行降序排列
+                   //（原理：数组内元素两个两个进行比较，当a-b<0时，a会排在b的后面）
+       ar1.sort(function(a,b){
+       	return a-b<0;
+       });
+       console.log(ar1);//[31, 23, 21, 3, 2, 1]
+//条件
+arr.some();       //满足一个条件就弹true
+       let ar2=[1,2,3,4,5];
+       let result=ar2.some(function(value){
+       	return value>3;
+       });
+       console.log(result);//true
+arr.every();       //满足所有条件就弹true
+       let ar3=[1,2,3,4,5];
+       let result1=ar3.every(function(value){
+       	return value<6;
+       });
+       console.log(result1);//true
+//映射
+arr.map();
+       let ar4=[1,2,3,4];
+       let result2=ar4.map(function(value){
+       	return value*2;
+       });
+       console.log(result2);//[2,4,6,8];
+      //arr.map()转化为箭头函数
+       let ar5=[1,2,3,4];
+       let map=ar5.map((value) =>value *2);
+       let map1=ar5.map((value,index) =>value+index);
+       let map2=ar5.map(() => true );
+       console.log(map);
+       console.log(map1);
+       console.log(map2);
+       // 1.箭头函数没有arguments这个对象；
+       // 2.箭头函数不能当做构造函数去实例化对象
+       // 当想用箭头函数返回一个对象时，加一个()
+       let fn = (num)=>({name:'zhangsan',age:18});//会返回一个对象
+       console.log(fn());//{name: "zhangsan", age: 18}
+       let aa =(num)=>{
+       	   return {name:num}
+       };//返回一个对象的另一个方法
+       console.log(aa(2));//{name: 2}
+//筛选符合条件的元素
+arr.filter();             //返回值为true的元素，function的参数与foreach相同
+       let ar6=[1,2,3,4];
+       let result3=ar6.filter(function(value){
+       	return value>2;
+       });
+       console.log(result3);//[3,4];
+//数组遍历
+arr.forEach();-----无返回值
+       let ar7=[1,2,3,4];
+       let result4=ar7.forEach(function(value){
+       	return value>2;
+       });
+       console.log(result4);//undefined;
+```
+
+##### 3.1.3 Math
+
+```JS
+//绝对值
+		console.log(Math.abs(-10));  //  10
+		console.log(Math.abs(-20));   //20
+//最值	  
+		console.log(Math.max(1,2,3,4,5));   //5
+		console.log(Math.min(1,2,3,4,5));   //1
+//近似值（四舍五入）	
+		console.log(Math.round(10.5));   //11
+		console.log(Math.round(10.45));   //10
+		console.log(Math.round(0.45));   //0
+		console.log(Math.round(-0.45));   //-0
+		console.log(Math.round(-10.5));   //-10
+		console.log(Math.round(-10.4));   //-10
+//向上取整		
+	    console.log(Math.ceil(10.5));   //11
+		console.log(Math.ceil(10.4));   //11
+		console.log(Math.ceil(5.5));   //6
+		console.log(Math.ceil(5.3));   //6
+		console.log(Math.ceil(-5.3));   //-5
+		console.log(Math.ceil(-0.3));   //-0
+
+//向下取整		
+	    console.log(Math.floor(10.5));   //10
+		console.log(Math.floor(10.4));   //10
+		console.log(Math.floor(5.5));   //5
+		console.log(Math.floor(5.3));   //5
+		console.log(Math.floor(-5.3));   //-6
+		console.log(Math.floor(-0.3));   //-1
+//求随机数----系统随机给出
+       //求x~y内的任意值 x<y  *表示x、y间的距离   +表示x~y的平移
+       // console.log(Math.random()*'y-x'+x);
+		console.log(Math.random());   //0~1内的任意值  例：0.11902426453967685
+		console.log(Math.random()*10); //0~10内的任意值 例：3.295062647295197
+		console.log(Math.random()*-20);//-20~0内的任意值例：-12.479248458486389
+        console.log(Math.random()*10+10);//10~20内的任意值 
+        console.log(Math.random()*7+3);//3~10内的任意值
+        console.log(Math.random()*8-3);//-3~5内的任意值
+//求x的y次方
+    //console.log(Math.pow(x,y)); 
+		console.log(Math.pow(2,3));   //2的3次方  8
+//求平方根
+    //console.log(Math.sqrt(x)); 
+		console.log(Math.sqrt(4));   //根号4=2  
+		console.log(Math.sqrt(64));   //根号64=8
+```
+
+```JS
+//随机颜色
+//HTML:
+       <div id="box" style="width: 200px;height: 200px;background: red;"></div>
+
+//JS:   用Math.random()做出随机变换的rgb()  
+        function color(){
+        	let ar=[]
+        	for(let i=0;i<3;i++){
+        		ar.push(Math.round(Math.random()*255))
+        	}
+            let str1=ar.join();
+            str='rgb('+str1+')';
+            return str;
+        }    
+
+       //把随机变换的rgb()添加到盒子效果中
+        let box=document.getElementById("box");
+        box.onmouseover =function(){
+        	box.style.background=color();
+        }
+```
+
+浏览器对象
 
 #### 
 

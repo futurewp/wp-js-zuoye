@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>array0914</title>
+</head>
+<body>
+	<script>
+		// let i=0;//全局作用域
+		// for(let i=0;i<arr.length;i++){     //独立作用域
+  //            let i=10                      //块级作用域
+		// }
+		let arrr=['a','b','c','d'];
+		arrr.length=0;      //删除数组，arr.lengtn 可读可写
+		console.log(arrr);  //[]
+		//Array(x) 是数组的构造函数, 当参数x是数字且只有一个时----代表数组的长度length
+		let arr1 = new Array('a','b','c','d');
+		console.log(arr1);
+		let arr2 = new Array(3);
+		console.log(arr2);
+		//想让参数x表示数组元素时，可以用以下方法：
+		//.of()是构造函数Array的方法
+		let arr3 =Array.of(3);
+		console.log(arr3);
+		
+
+
+        let arr=['a','b','c','d'];
+		//添加和删除
+		arr.push(1,2,3,4);//["a", "b", "c", "d", 1, 2, 3, 4,]
+		arr.unshift(1,2,3,4);//[1, 2, 3, 4, "a", "b", "c", "d", 1, 2, 3, 4]
+		console.log(arr);
+		
+		arr.pop();//[1, 2, 3, 4, "a", "b", "c", "d", 1, 2, 3]
+		arr.pop();//[1, 2, 3, 4, "a", "b", "c", "d", 1, 2]
+		arr.shift()//[2, 3, 4, "a", "b", "c", "d", 1, 2]
+		arr.shift()// [3, 4, "a", "b", "c", "d", 1, 2]
+		console.log(arr);
+        //单独实现删除
+		arr.splice(1,2);   
+        console.log(arr);// [3,"b", "c", "d", 1, 2]
+        //单独实现添加
+        arr.splice(1,0,3,4);
+        console.log(arr);//[3, 3, 4, "b", "c", "d", 1, 2]
+        //万能添加与删除
+        arr.splice(1,2,1,2);
+        console.log(arr); //[3, 1, 2, "b", "c", "d", 1, 2]
+       //map
+       let ar4=[1,2,3,4];
+       let result2=ar4.map(function(value){
+       	return value*2;
+       });
+       console.log(result2);//[2,4,6,8];
+      //map()转化为箭头函数
+       let ar=[1,2,3,4];
+       let map=ar.map((value) =>value *2);
+       let map1=ar.map((value,index) =>value+index);
+       let map2=ar.map(() => true );
+       console.log(map);
+       console.log(map1);
+       console.log(map2);
+       // 1.箭头函数没有arguments这个对象；
+       // 2.箭头函数不能当做构造函数去实例化对象
+       // 当想用箭头函数返回一个对象时，加一个()
+       let fn = (num)=>({name:'zhangsan',age:18});//会返回一个对象
+       console.log(fn());//{name: "zhangsan", age: 18}
+       let aa =(num)=>{
+       	   return {name:num}
+       };//返回一个对象的另一个方法
+       console.log(aa(2));//{name: 2}
+       //sort
+       let ar1=[1,21,31,23,3,2];
+       ar1.sort();
+       console.log(ar1);//[1, 2, 21, 23, 3, 31]
+       ar1.sort(function(a,b){
+       	return a-b<0;
+       });
+       console.log(ar1);//[31, 23, 21, 3, 2, 1]
+        //some
+       let ar2=[1,2,3,4,5];
+       let result=ar2.some(function(value){
+       	return value>3;
+       });
+       console.log(result);//true
+
+       //filter
+       let ar6=[1,2,3,4];
+       let result3=ar6.filter(function(value){
+       	return value>2;
+       });
+       console.log(result3);//[3,4];
+       //forEach
+       let ar7=[1,2,3,4];
+       let result4=ar7.forEach(function(value){
+       	return value>2;
+       });
+       console.log(result4);//undefined;
+
+        // 将arr4 ，arr5 合并
+        let arr4 = new Array('a','b','c','d');
+        let arr5 = new Array(1,2,3,4);
+        arr4.push(...arr5);
+        console.log(arr4);//["a", "b", "c", "d", 1, 2, 3, 4]
+        console.log(arr5.concat(arr4));[1, 2, 3, 4, "a", "b", "c", "d"]
+        console.log(arr5.reverse());//[4, 3, 2, 1]
+
+
+
+//数组去重  方法一：
+//    比较newarr中的当前元素是否有重复的元素
+        let arr6=[1,2,3,4,5,1,2,3];
+        function delRepeat(arr6){
+          let newarr=[];
+          for(let i=0;i<arr6.length;i++){
+          	if(newarr.includes(arr6[i])){
+          		continue;
+          	}
+          	newarr.push(arr6[i]);
+          }
+          return newarr
+        }
+        let res=delRepeat(arr6);
+        console.log(res);//[1, 2, 3, 4, 5]
+//数组去重  方法二：
+//    比较arr6中的当前元素是否有重复的元素
+        function delRepeat1(arr6){
+          let newarr=[];
+          for(let i=0;i<arr6.length;i++){
+          	let flag = true;           //目的：让每个人i有一个判断依据
+          	for(let j=i+1;j<arr6.length;j++){
+          	   if(arr6[i]==arr6[j]){
+          	   	   flag = false;
+          	   	   break;
+          	   }
+          	}
+          	if(flag==true){
+          		newarr.push(arr6[i]);
+          	}
+          } 
+            return newarr;
+        }
+        let res1=delRepeat1(arr6);
+        console.log(res1);// [4, 5, 1, 2, 3]
+        let arr7=[5,5,2,4,4,6,6,2,5,6,2];
+        let res2=delRepeat1(arr7);
+        console.log(res2);
+
+
+//把"数组去重"变成"数组的方法"
+Array.prototype.delRepeat= function(){
+          let newarr= new Array();
+          for(let i=0;i<this.length;i++){
+            if(newarr.includes(this[i])){
+              continue;
+            }
+            newarr.push(this[i]);
+          }
+          return newarr
+     }   
+      let arr8= new Array(1,2,3,4,5,2,3,4);
+      console.log(arr8.delRepeat());// [1, 2, 3, 4, 5]
+    
+	</script>
+</body>
+</html>

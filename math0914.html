@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>match0914</title>
+</head>
+<body>
+ <div id="box" style="width: 200px;height: 200px;background: red;"></div>
+	<script>
+//绝对值
+		console.log(Math.abs(-10));  //  10
+		console.log(Math.abs(-20));   //20
+//最值	  
+		console.log(Math.max(1,2,3,4,5));   //5
+		console.log(Math.min(1,2,3,4,5));   //1
+//近似值（四舍五入）	
+		console.log(Math.round(10.5));   //11
+		console.log(Math.round(10.45));   //10
+		console.log(Math.round(0.45));   //0
+		console.log(Math.round(-0.45));   //-0
+		console.log(Math.round(-10.5));   //-10
+		console.log(Math.round(-10.4));   //-10
+//向上取整		
+	    console.log(Math.ceil(10.5));   //11
+		console.log(Math.ceil(10.4));   //11
+		console.log(Math.ceil(5.5));   //6
+		console.log(Math.ceil(5.3));   //6
+		console.log(Math.ceil(-5.3));   //-5
+		console.log(Math.ceil(-0.3));   //-0
+
+//向下取整		
+	    console.log(Math.floor(10.5));   //10
+		console.log(Math.floor(10.4));   //10
+		console.log(Math.floor(5.5));   //5
+		console.log(Math.floor(5.3));   //5
+		console.log(Math.floor(-5.3));   //-6
+		console.log(Math.floor(-0.3));   //-1
+//求随机数----系统随机给出
+       //求x~y内的任意值 x<y  *表示x、y间的距离   +表示x~y的平移
+       // console.log(Math.random()*'y-x'+x);
+		console.log(Math.random());   //0~1内的任意值  例：0.11902426453967685
+		console.log(Math.random()*10); //0~10内的任意值 例：3.295062647295197
+		console.log(Math.random()*-20);//-20~0内的任意值例：-12.479248458486389
+        console.log(Math.random()*10+10);//10~20内的任意值 
+        console.log(Math.random()*7+3);//3~10内的任意值
+        console.log(Math.random()*8-3);//-3~5内的任意值
+//求x的y次方
+    //console.log(Math.pow(x,y)); 
+		console.log(Math.pow(2,3));   //2的3次方  8
+//求平方根
+    //console.log(Math.sqrt(x)); 
+		console.log(Math.sqrt(4));   //根号4=2  
+		console.log(Math.sqrt(64));   //根号64=8
+
+
+
+
+
+
+
+//从数组中取任意个元素
+//方法一：
+        var arr=[1,2,3,4,5,6,7,8];
+        function ry(arr,n){
+        	var newarr=[];
+        	for(let i=0;i<n;i++){
+        		let x=Math.floor(Math.random()*arr.length);
+        		if(newarr.includes(arr[x])){
+        			i--;
+        		}else{
+        		   newarr.push(arr[x])	
+        		}  
+        	}
+        	return newarr;
+        }	
+
+        console.log(ry(arr,5));
+// 方法二：
+        function ry1(arr,n){
+        	var newarr=[];
+        	while(newarr.length<n){
+        		let x=Math.floor(Math.random()*arr.length);
+        		while(newarr.includes(arr[x])){
+                    x=Math.floor(Math.random()*arr.length);
+        		}
+        		newarr.push(arr[x])	
+        		 
+        	}
+        	return newarr;
+        }	
+
+        console.log(ry1(arr,5));
+//随机颜色
+        function color(){
+        	let ar=[]
+        	for(let i=0;i<3;i++){
+        		ar.push(Math.round(Math.random()*255))
+        	}
+            let str1=ar.join();
+            str='rgb('+str1+')';
+            return str;
+        }    
+        console.log(color())
+        let box=document.getElementById("box");
+        box.onmouseover =function(){
+        	box.style.background=color();
+        }
+	</script>
+
+	
+</body>
+</html>
