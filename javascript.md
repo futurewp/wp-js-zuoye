@@ -1030,7 +1030,7 @@ for(var i=0;i<arr.length;i++){
         		}else{
         		   newarr.push(arr[x])	
         		}  
-        	}
+            }
         	return newarr;
         }	
 
@@ -2092,9 +2092,7 @@ Array.prototype.delRepeat= function(){
 
 #### 3.1 分类
 
-基本语法对象
-
-#####    3.1.1 string 
+#####    3.1.1 string---基本语法对象 
 
 ```js
 		let str='asaddad';
@@ -2227,7 +2225,7 @@ str2.toLowerCase()     把字符串转换成小写；
         }
         console.log(pos(url,'baidu'));
 ```
-##### 3.1.2 Array
+##### 3.1.2 Array---基本语法对象
 
 ```js
      1. let i=0;//全局作用域
@@ -2352,7 +2350,7 @@ arr.forEach();-----无返回值
        console.log(result4);//undefined;
 ```
 
-##### 3.1.3 Math
+##### 3.1.3 Math---基本语法对象
 
 ```JS
 //绝对值
@@ -2424,7 +2422,128 @@ arr.forEach();-----无返回值
         }
 ```
 
-浏览器对象
+## 十. bom---浏览器对象
+
+```JS
+window是bom的对象
+window组成（window的子对象）：历史、地址栏、dom、screen（屏幕）、frames navigator.....
+```
+
+了解
+
+```JS
+//属性     
+        alert(window.screenLeft); //浏览器到屏幕左边的距离
+        alert(window.screenX); //浏览器到屏幕左边的距离  低版本ie没有
+
+        alert(window.screeTop); //浏览器到屏幕上边的距离
+        // alert(window.screenY); //浏览器到屏幕上边的距离  低版本ie没有
+
+        window.frames  //window 的子窗口
+        window.top     //window 的顶层窗口
+        window.parent  //window 的父窗口
+        window.self//===(window.window) //window 自己本身 
+        
+        alert(window==self);
+        alert(window.innerWidth);
+//方法 
+        moveTo(100, 100);   移动到(100, 100)
+        resizeTo(100, 100);
+        moveBy(100, 100);   从当前位置移动了(100, 100)
+        
+//提示框 
+        confirm('确定退出吗');//带有确定和退出的弹框
+        alert('确定退出吗');//带有确定的弹框
+
+//在新窗口打开一个页面  
+        open(地址,新窗口名字,新窗口样式,是否要有历史记录（true/false）)
+//在新窗口关闭一个页面  
+        close()
+```
+
+重点
+
+```JS
+alert(window.innerWidth); //获取浏览器可视区域（视口）的宽度
+alert(window.innerHeight); //获取浏览器可视区域（视口）的高度
+
+alert(window.outerWidth); //获取浏览器的宽度
+alert(window.outerHeight); //获取浏览器的高度
+
+//兼容性的方法获取浏览器的宽度(内容)  
+//documentElement文本元素 clientWidth:兼容性宽度
+       alert(window.documentElement.clientWidth); 
+//兼容性的方法获取浏览器的高度(内容)
+       alert(window.documentElement.clientHeight); 
+
+时间函数   
+1. 按照某一个周期一直执行某个函数
+   window.setInterval(回调函数,周期--最小为4、默认单位：ms)
+      // 方法一
+         window.setInterval(function(){alert(1)},500);
+      // 方法二
+        window.t= window.setInterval(()=>{alert(1)},500);
+      // 方法三
+          function fn(){alert(1)}
+          var t=window.setInterval(fn,500)
+
+  // 清除时间函数
+        // 方法一
+         window.clearInterval(t)
+        // 方法二
+         window.clearInterval(window.t)
+         
+2. 在 指定的周期后 执行 某个函数 只执行一次，不写window时，默认window
+         function fn(){alert(1)}
+         var a=setTimeout(fn,10);
+  // 清除时间函数
+         clearTimeout(a);
+   
+ // 用setTimeout模拟setInterval---------递归函数
+   function fn(){
+       alert(1);
+   	   setTimeout(fn,10);
+   }
+   fn();
+```
+
+### 10.1 history
+
+history是window的子对象;   在js中只写history，则是window.history
+
+```js
+//history的属性
+        history.length  //历史长度
+//history的方法
+        history.back()   //后退
+        history.forward()  //前进
+        history.go(n)  //-1=back   1=forward   0=refesh 刷新
+```
+
+### 10.2 location
+
+url------uniform resource locator-------统一资源定位符
+
+```js
+// 属性
+        location.hash  //设置网页中的锚点
+        location.href   //获取或设置网页完整地址
+        location.protocol//协议
+        location.host     //主机
+        location.hostname //主机名
+        location.port     //端口号
+        location.pathname//路径名   /s
+        // 从？开始往后部分  格式：属性：属性值&属性：属性值......
+        location.search
+//方法
+        location.assign();//加载一个新页面   会留下历史记录
+        location.reload();//重新加载、刷新;  参数是布尔值,也可以是无参数
+        location.replace();//替换掉原页面  不会留下历史记录
+
+//refesh.innerText  改变文本值，即可以获取结设置
+```
+
+
 
 #### 
 

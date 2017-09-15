@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bom0915</title>
+</head>
+<body>
+	<script>
+        // console.log(window);
+        
+        // alert(window.screenLeft); //浏览器到屏幕左边的距离
+        // alert(window.screenX); //浏览器到屏幕左边的距离  低版本ie没有
+
+        // alert(window.screeTop); //浏览器到屏幕上边的距离
+        // alert(window.screenY); //浏览器到屏幕上边的距离  低版本ie没有
+
+// alert(window.innerWidth); //获取浏览器可视区域（视口）的宽度
+// alert(window.innerHeight); //获取浏览器可视区域（视口）的高度
+
+        // alert(window.outerWidth); //获取浏览器的宽度
+
+//兼容性的方法获取浏览器的宽度(内容)  
+//documentElement文本元素 clientWidth:兼容性宽度
+        // alert(window.documentElement.clientWidth); 
+//兼容性的方法获取浏览器的高度(内容)
+        // alert(window.documentElement.clientHeight); 
+        
+        // window.frames  //window 的子窗口
+        // window.top     //window 的顶层窗口
+        // window.parent  //window 的父窗口
+        // window.self//===(window.window) //window 自己本身
+        // 
+        
+        // alert(window==self);
+        // alert(window.innerWidth);
+        //方法 
+        // moveTo(100, 100);   移动到(100, 100)
+        // resizeTo(100, 100);
+        // moveBy(100, 100);   从当前位置移动了(100, 100)
+        // 
+// 时间函数---window.setInterval(回调函数,周期--最小为4、默认单位：ms)   
+  //按照某一个周期一直执行某个函数
+      // 方法一
+         // window.setInterval(function(){alert(1)},500);
+      // 方法二
+        // window.t= window.setInterval(()=>{alert(1)},500);
+      // 方法三
+         // function fn(){alert(1)}
+         // var t=window.setInterval(fn,500)
+
+  // 清除时间函数
+      // window.clearInterval(t)
+         // window.clearInterval(window.t)
+         // 
+  // 在指定的周期后执行某个函数只执行一次，不写window时，默认window
+      // function fn(){alert(1)}
+      // var a=setTimeout(fn,10);
+  // 清除时间函数
+      // clearTimeout(a);
+   
+   // 用setTimeout模拟setInterval---------递归函数
+   // function fn(){
+   // 	 alert(1);
+   // 	 setTimeout(fn,10);
+   // }
+   // fn();
+ 
+   //提示框 
+   // confirm('确定退出吗');//带有确定和退出的弹框
+   // alert('确定退出吗');//带有确定的弹框
+
+   //在新窗口打开一个页面  
+   // open(地址,新窗口名字,新窗口样式,是否要有历史记录（true/false）)
+   //在新窗口关闭一个页面  
+   // close()
+   // 
+   // 
+   function table(m,n){
+   	  document.write('<table border="1px" cellspacing="0" cellpadding="15px" width="80%" align="center">' )
+   	     for(let i=1;i<=m;i++){
+              let color;
+              if(i%2===0){
+                       color= 'red';
+              }
+              else{
+                       color= 'blue';
+              }
+   	     	document.write('<tr  align="center" bgcolor='+color+'>')
+                for(let j=1;j<=n;j++){
+                	document.write('<td>'+i+'-'+j+'</td>')
+                }
+   	     	document.write('</tr><br />')
+   	     }
+   	  document.write('</table>')
+   	  return table
+   }
+   table(5,5);
+        
+        
+        
+        
+        // //history的属性
+        // history.length  //历史长度
+        // //history的方法
+        // history.back()   //后退
+        // history.forward()  //前进
+        // history.go(n)  //-1=back   1=forward   0=refesh 刷新
+        
+
+        // // url :uniform resource locator  统一资源定位符
+        // // 属性
+        // location.hash  //设置网页中的锚点
+        // location.href   //获取或设置网页完整地址
+        // location.protocol//协议
+        // location.host     //主机
+        // location.hostname //主机名
+        // location.port     //端口号
+        // location.pathname//路径名   /s
+        // // 从？开始往后部分  格式：属性：属性值&属性：属性值......
+        // location.search
+        // //方法
+        // location.assign();//加载一个新页面，会留下历史记录
+        // location.reload();//重新加载、刷新 参数是布尔值  也可以是无参数
+        // //flase 
+        // location.replace();//替换掉原页面  不会留下历史记录
+
+	</script>
+</body>
+</html>

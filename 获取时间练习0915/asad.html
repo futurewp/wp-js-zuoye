@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	button{
+		width: 100px;
+		height: 50px;
+		background: blue;
+        font-size: 32px;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+        border: none;
+	}
+</style>
+</head>
+<body>
+	<h1><a href="bbb.html">sdfsfsdfsdfdsdsf</a></h1>
+
+   <button id="back">后退</button>
+   <button id="forward">前进</button>
+   <button id="refesh">刷新</button>
+
+<script>
+    alert(history.length);
+
+	let back=document.getElementById('back');
+	back.onclick=function(){
+		history.back();
+	}
+
+	let forward=document.getElementById('forward');
+	forward.onclick=function(){
+		history.forward();
+	}
+
+	let refesh=document.getElementById('refesh');
+	refesh.onclick=function(){
+		history.go(0);
+	}
+</script>
+</body>
+</html>
