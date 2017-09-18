@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dom0918</title>
+	<style>
+/* 	   .box{
+	   	width: 200px;
+	   	height: 200px;
+	   	background: red;
+	   	float: left;
+	   	margin: 20px;
+	   } */
+    button{
+    	/* width: 100px; */
+    	height: 60px;
+    	background: #008e;
+    	color: #fff;
+    	font-size: 32px;
+    	margin: 20px 20px;
+    	border:none;
+    	border-radius: 20px;
+    }
+    #box{
+    	width: 200px;
+    	height: 500px;
+    	background: red;
+    	margin-left: 20px;
+    	transition: 2s;
+    }
+
+    /* cousor:pointerl; */
+/*      innerText w3c标准   获取或设置文本内容
+     textContent ie    获取或设置文本内容
+     innerHTML    获取或设置文本内容、可以识别 */
+
+	</style>
+</head>
+<!-- <div class="box">1</div>
+<div class="box">2</div>
+<div class="box">3</div>
+<div class="box">4</div> -->
+<button>slidedown</button>
+<button>slideup</button>
+<button>slideToggle</button>
+<div id="box"></div>
+<body>
+	<script>
+		// console.dir(document);
+		// document.title='这是document的标题'; //获取或设置标题
+		// document.URL='http://www.baidu.com';//只读 获取地址
+		// document.bgColor='#ff6700';//背景色
+		// document.fgColor='#000';//前景色
+
+		// let box=document.getElementById('box');//也是个对象
+		// box.style.height='300px'
+		// let divs=document.getElementsByTagName('div');//不是个数组，是一个html集合
+		// console.log(divs[0])
+		// divs[1].style.background='yellow'
+		// divs.length//返回值为 获取到的元素个数，可以对其进行遍历
+		// 
+		// let cla=document.getElementsByClassName('box');//不是个数组，获取指定类名的                                                         元素集合；通过下标的方式操作元素 
+		// cla[2].style.background='yellow';
+		// 
+		let button=document.getElementsByTagName('button');
+		let box=document.getElementById('box');
+		button[0].onclick=function(){
+			box.style.height='500px';
+		}
+		button[1].onclick=function(){
+			box.style.height='0';
+		}
+
+
+
+		let flag=true;
+		button[2].onclick=function(){
+			if(flag){
+				box.style.height='0';
+				flag=false;
+			}else{
+				box.style.height='300px';
+				flag=true;
+			}
+		}
+	</script>
+</body>
+</html>

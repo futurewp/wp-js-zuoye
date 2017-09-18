@@ -1,4 +1,4 @@
-# 2017.09.04
+# 02017.09.04
 
 ## javascript
 
@@ -16,7 +16,7 @@
 
 5.cookie、本地存储
 
-6.ajax(动态获取数据)
+06.ajax(动态获取数据)
 
 7.******......
 
@@ -327,7 +327,7 @@ JavaScript的设计者希望用null表示一个空的值，而undefined表示值
 
    object
 
-### 检查数据方法
+### 3.检查数据方法
 
 typeof(variab)         
 
@@ -401,12 +401,12 @@ typeof(variab)
     num2='2';
     alert(num1<num2);       // true
 4.数字与字符串进行比较时，尝试着将字符串转化为数字，按照数字的规则比较，
-    num1='10';
-    num2='b';
+    num1=10;
+    num2='2';
     alert(num1<num2);       // true
    如果转换不成功则返回NAN，整个表达式返回false；
-    num1='10';
-    num2='2px';
+    num1=10;
+    num2='2px';   //
     alert(num1<num2);      // false
 5.数字与布尔值  true   1         
                false  0   
@@ -505,15 +505,15 @@ c.多路分支
          代码
          break
          
-         case 情况1 :
+         case 情况2 :
          代码
          break
          
-         case 情况1 :
+         case 情况3 :
          代码
          break
          
-         case 情况1 :
+         case 情况4 :
          代码
          break
          
@@ -1252,7 +1252,7 @@ rest参数必须在最后；
 
 ```JS
 function fn(arr,...rest){
-  //rest
+  //函数体
 }
 
 例：
@@ -1905,7 +1905,6 @@ for(let.方法名和属性名的概括..in.对象名..){
 例： for(let i in iphone8){                      //i 是字符串
      	console.log(`${i}=${iphone8[i]}`)       //``  反引号  （英文状态下esc下方的键）
      }
-
 ```
 #### 2.4 如何创建自己的数组对象
 
@@ -2256,7 +2255,7 @@ arr.unshift() //在arr数组的开头添加一个或多个元素,返回值为新
 arr.pop()     // 删除arr数组的最后一个元素，返回值为被删除的元素，()内无参数
 		arr.pop();//arr=[1, 2, 3, 4, "a", "b", "c", "d", 1, 2, 3]
 		arr.pop();//arr=[1, 2, 3, 4, "a", "b", "c", "d", 1, 2]
-arr.shift()  // 删除arr数组的最第一个元素，返回值为被删除的元素，()内无参数
+arr.shift()  // 删除arr数组的第一个元素，返回值为被删除的元素，()内无参数
 		arr.shift()//arr=[2, 3, 4, "a", "b", "c", "d", 1, 2]
 		arr.shift()//arr=[3, 4, "a", "b", "c", "d", 1, 2]
 //万能的添加和删除
@@ -2543,7 +2542,96 @@ url------uniform resource locator-------统一资源定位符
 //refesh.innerText  改变文本值，即可以获取结设置
 ```
 
+## 十一、dom---文档对象模型
+
+### dom中的核心对象是 document
+
+```js
+console.dir(document);  //当要打印一个对象时，一般用  console.dir();
+
+属性：
+		document.title='这是document的标题'; //获取或设置标题
+		document.URL='http://www.baidu.com';//只读 获取地址（返回文档的url）
+		document.bgColor='#ff6700';//背景色
+		document.fgColor='#000';//前景色
+方法：
+		let box=document.getElementById('id名');//也是个对象  获取拥有指定id的第一个元素
+		box.style.height='300px'
+        
+        
+		let divs=document.getElementsByTagName('标签名');//不是个数组，获取指定标签名的元素                                                         集合；通过下标的方式操作元素
+		divs[1].style.background='yellow'
+		divs.length//返回值为 获取到的元素个数，可以对其进行遍历
+        
+        
+		let cla=document.getElementsByClassName('类名');//不是个数组，获取指定类名的                                                         元素集合；通过下标的方式操作元素 
+		cla[2].style.background='yellow';
 
 
-#### 
+       document.all  //获取页面中的所有元素
+       
+       document.getElementsByTagName('*');
+       obj.getElementsByTagName('标签名');  //获取指定范围内的元素集合  obj是一个对象
+
+
+获取或设置文本内容
+     对象名.innerText=''          w3c标准   
+     对象名.textContent=''          ie   
+     对象名.innerHTML=''          可以识别标签对
+修改样式
+   方法一：通过id、类名修改
+     对象名.id          //批量修改
+     对象名.className 
+   方法二：通过行内样式修改；
+     对象名.style.属性名
+        例：divs[0].style.borderRadius='50%';
+            divs[0].style['border-radius']='50%'
+获取样式
+方法一：行内样式---只能获取行内设置的样式
+    对象名.style.属性名 
+方法二：window的方法-----只能获取样式，不能修改
+    getComputedStyle(x,y).属性名  x:要获取样式的对象名  y：默认值null
+修改属性：
+     对象名.属性名=''             //获取或操作该对象的属性
+
+```
+
+### 事件(驱动)
+
+用户的操作，浏览器行为会反馈一些实时的响应
+
+事件(驱动)分为三部分----三要素：
+
+1.  事件：（如何发生）
+2.  事件源：（发生在谁身上）
+3.  事件处理函数：（事件发生的时候需要干什么）
+
+事件的分类：
+
+```js
+     鼠标：
+
+          click 
+
+          mouseover/mouseenter       mouseout/mouseleave
+
+          mousedown  mouseup  mousemove
+
+    键盘：
+
+        keydown  keyup  keypress
+
+    表单：
+
+         focus    blur    change     input    submit
+    浏览器的事件（window）：
+        onload//当页面加载完毕时所作的事 
+       
+         
+
+```
+
+
+
+
 

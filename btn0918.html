@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>btn0918</title>
+	<style>
+/* 	   main{
+	   	width: 1226px;
+	   	height: 450px;
+	   	background: yellow;
+	    margin: 0 auto;
+	   	position: relative;
+	   }
+	   .btn{
+	   	width: 125px;
+	   	height: 15px;
+	   	list-style: none;
+	   	position: absolute;
+	   	bottom: 20px;
+	   	left: 0;
+	   	right: 0;
+	   	margin-left: auto;
+	   	margin-right: auto;
+	   }
+
+	   .btn li{
+	   	width: 15px;
+	   	height: 15px;
+	   	background: red;
+	   	float: left;
+	   	margin-right: 10px;
+	   	border-radius: 50%;
+	   	cursor:pointer;
+	   }
+	   .btn .blue{
+	   	background: blue;
+	   }
+	   /* 	   .btn .red{
+	   	background: red;
+	   } */ 
+	   .box{
+	   	width: 300px;
+	   	height: 300px;
+	   	background: red;
+	   	margin: 20px auto;
+	   }
+
+	</style>
+</head>
+<body>
+<!-- 	<main>
+		<ul class="btn">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</main> -->
+	<div class="box"></div>
+</body>
+</html>
+<script>
+
+	// let btn=document.getElementsByClassName('btn');
+	// let a=btn[0].getElementsByTagName('li')
+	// for(let i=0;i<a.length;i++){
+	// 	a[i].className='blue'
+	// 	// a[i].style.background='blue';
+	// }
+	let box=document.getElementsByClassName('box')[0];
+	let b=setInterval(fn,60);
+	let d=10;
+	function fn(){
+       let c=parseInt( getComputedStyle(box,null).width);
+       if(c>=500){
+       	d=-d;
+       }
+       if(c<300){
+       	d=-d;
+       }
+       box.style.width=`${c+d}px`;
+	}
+</script>
