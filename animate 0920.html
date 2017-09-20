@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animate </title>
+	<style>
+	  .box{
+		   	width: 300px;
+		   	height: 300px;
+		   	background: red;
+		   	margin: 20px auto;
+		   }
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<script>
+window.onload=function(){
+
+	//调用时决定this的指向
+	//初始方法
+          //       animate1(box,'width');
+		        // function animate1(obj,attr){
+		        // 	let t=setInterval(function(){
+          //              	 let w=parseInt( getComputedStyle(obj,null)[attr]);
+	         //               	 if(w>=500){
+	         //               	 	w=500;
+	         //               	 	clearInterval(t);
+          //              	    }
+          //              	 obj.style[attr]=w+10+'px';
+          //              }, 60)
+		        // }
+			//对象的属性两种方法：  1.对象名.属性名  2.对象名[属性名]
+			    let box=document.getElementsByClassName('box')[0];	
+                animate(box,{width:500,height:500},function(){
+                	box.style.background='blue';
+                })
+                
+
+		        function animate(obj,attrObj,callback){
+		        	let t=setInterval(function(){
+                       for(let i in attrObj){
+                       	 let w=parseInt( getComputedStyle(obj,null)[i]);
+	                       	 if(w>=attrObj[i]){
+	                       	 	w=attrObj[i];
+	                       	 	clearInterval(t);
+	                       	 	callback();
+                       	     }
+                       	 obj.style[i]=w+10+'px';
+                       }
+		            }, 60)
+		        }
+		        
+    // 用this
+          //       animate(box,{width:500,height:500},function(){
+          //       	this.style.background='blue';
+          //       })
+                
+
+		        // function animate(obj,attrObj,callback){
+		        // 	let t=setInterval(function(){
+          //              for(let i in attrObj){
+          //              	 let w=parseInt( getComputedStyle(obj,null)[i]);
+	         //               	 if(w>=attrObj[i]){
+	         //               	 	w=attrObj[i];
+	         //               	 	clearInterval(t);
+	         //               	 	callback.call(obj);
+          //              	     }
+          //              	 obj.style[i]=w+10+'px';
+          //              }
+		        //     }, 60)
+          //       }	
+ }           
+		        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+
+
+
+
+
+
+
+		
+	</script>		
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+       *{
+       	 margin: 0;
+       	 padding: 0;
+       }
+       .box{
+       	width: 200px;
+       	height: 200px;
+       	background: #008ed0;
+       	position: relative;
+       }
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<script>
+		window.onload=function(){
+			let box =document.getElementsByClassName('box')[0];
+			let maxY=window.innerHeight-box.offsetHeight;
+			let maxX=window.innerWidth-box.offsetWidth;
+			let speed=10;
+			let t=setInterval(move,30);
+			let t1=setInterval(move1,30);
+			function move(){
+				let tops=box.offsetTop +speed;
+				// let lefts=box.offsetLeft +speed;
+				if(tops>=maxY){
+                    tops=maxY;
+                    // lefts=maxX;
+                    speed=-speed;
+				}
+				if(tops<=0){
+                    tops=0;
+                    // lefts=0
+                    speed=-speed;
+				}
+				box.style.top = tops+'px';
+				// box.style.left = lefts+'px';
+			}
+			let speed1=10;
+			function move1(){
+				// let tops=box.offsetTop +speed;
+				let lefts=box.offsetLeft +speed1;
+				if(lefts>=maxX){
+                    // tops=maxY;
+                    lefts=maxX;
+                    speed1=-speed1;
+				}
+				if(lefts<=0){
+                    // tops=0;
+                    lefts=0
+                    speed1=-speed1;
+				}
+				// box.style.top = tops+'px';
+				box.style.left = lefts+'px';
+			}
+		}
+	</script>
+</body>
+</html>
