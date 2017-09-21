@@ -1,4 +1,4 @@
-# 02017.09.04
+# 2017.09.04
 
 ## javascript
 
@@ -2240,7 +2240,10 @@ str2.toLowerCase()     把字符串转换成小写；
 		//.of()是构造函数Array的方法
 		let arr3 =Array.of(3);
 		console.log(arr3);                     //[3]
-
+     3.Array.from(div)  //把集合（类似 数组 结构）转化为数组
+       Array.isArray(arr);   //判断arr是不是一个数组
+       Array.prototype.forEach.call( div,function(element){console.log(element)} )
+       //把数组的方法--遍历  冒充  给div
 
 //属性
 arr.length=0;      //删除数组（arr.lengtn 可读可写）
@@ -2546,6 +2549,8 @@ url------uniform resource locator-------统一资源定位符
 
 ### dom中的核心对象是 document
 
+
+
 ```js
 console.dir(document);  //当要打印一个对象时，一般用  console.dir();
 
@@ -2631,7 +2636,71 @@ console.dir(document);  //当要打印一个对象时，一般用  console.dir()
 
 ```
 
+```js
+继承：冒充call/apply，并不代表lisi也有这种方法//lisi继承zs的say方法，只能冒充方法，但只能冒充一次
+		zhangsan.say.call(要冒充的对象,方法要接收的参数);//参数用逗号隔开
+		zhangsan.say.apply(要冒充的对象,[方法要接收的参数]);//参数是一个数组
+let zhangsan=new person();
+let lisi=new student();
+zhangsan.say(1,2);//3
+zhangsan.say.call(lisi,3,4);//7
+zhangsan.say.apply(lisi,[3,4]);
+lisi.say();//报错
+```
+
+```js
+getComputedStyle(barrBox,null).width  //获取属性值，而不是尺寸
+box.offsetwidth//
+box.offsetHeight// 获取尺寸
+
+.offsetLeft
+//某元素相对于父元素的位置。与元素的left、top属性无关。父元素必须是有定位属性的。即position
+//子元素有定位：子position+子margin
+//子元素无定位：子margin+父padding
+.offsetTop
+```
 
 
 
+文档对象模型是由节点组成一个文档树模型。由元素节点、属性节点、文本节点组成，节点之间相互联系、相互影响，称之为模型
 
+节点：
+
+文档：文档节点；标签：元素节点；属性：属性节点；文本：文本节点；注释：注释节点
+
+属性节点
+
+```js
+1. document.querySelector('div')//选中的是指定选择器的第一个元素（不用加下标--因为获取    的是元素）；
+2. document.querySelectorAll('div')// 获取的是指定选择器的全部（集合），需要加下标；
+   与document.getElementsByTagname('div')  其区别是__proto__的指向不同；
+   可以用数组的遍历  .forEach();
+3. document.querySelector('div.box:first-child')
+
+   obj.child       获取某一个元素的所有元素的节点  (nodelist)       可用数组遍历.forEach();
+   obj.children     获取某一个元素的元素节点   (HTMLcollection)
+   obj.ElementCount  获取
+ 
+   obj.firstChild   获取某一个元素的第一个子元素
+   obj.lastChild   获取某一个元素的最后一个子元素
+  
+   obj.firstElementChild   获取某一个元素的第一个元素节点
+   obj.lastElementChild   获取某一个元素的最后一个元素节点 
+   
+   obj.parentNode   获取某一个元素的父元素
+   
+   obj.nextSibling   获取某一个元素的(下一个)兄弟节点
+   obj.nextElementSibling   获取某一个元素的(下一个)兄弟元素的节点
+   
+   obj.previousSibling   获取某一个元素的(上一个)兄弟节点
+   obj.previousElementSibling   获取某一个元素的(上一个)兄弟元素节点；
+   若没有对应的元素则输出 Null
+```
+
+|  节点  | nodeName节点名 | nodeType节点类型 | nodeVuale节点值 |
+| :--: | :---------: | :----------: | :----------: |
+| 元素节点 |    标签大写     |      1       |     null     |
+| 文本节点 |    #text    |      3       |     文本内容     |
+| 注释节点 |  #comment   |      8       |     注释内容     |
+| 文档节点 |  #document  |      9       |     null     |
+| 属性节点 |             |              |              |

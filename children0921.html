@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	.son1{
+		font-size: 30px;
+		color: #ccc;
+	}
+	.son2{
+		font-size: 25px;
+		color: #008ED0;
+	}
+</style>
+<body>
+	<div class="box">
+		hello
+		<div class="son1">
+			王鹏
+		</div>
+		<div class="son2"></div>
+		<span>231321654561321</span>
+		<div></div>
+		<p></p>
+		<div></div>
+		<p></p>
+	</div>
+	<script>
+//从childNodes中找出children  方法一
+		let box=document.querySelector('.box');
+		function children(parent){
+			let newarr=[];
+			let childs=parent.childNodes;
+			childs.forEach(element=>{
+				if(element.nodeType==1){
+					newarr.push(element);
+				}
+			})
+			return newarr;
+		}
+        console.log(children(box));	
+		
+//从childNodes中找出children  方法二
+		// function children(parent){
+		// 	let childs=parent.childNodes;
+		// 	let arr=Array.from(childs)
+		// 	let newarr = arr.filter(element =>element.nodeType==1);
+		// 	return newarr;
+		// }
+  //       console.log(children(box));
+    
+        
+        // let aaa=box.childNodes;	
+        // console.log(aaa) 
+// 找出父元素的第num个元素的节点
+        // function numchild(parent,num){
+        // 	let childs=parent.childNodes;
+        // 	return childs[num];
+        // }
+        // console.log(numchild(box,5));
+
+// 找出element之后距离element最近的tagname节点
+
+        function next(element,tagname){
+        	let parent = element.parentNode;
+        	let child = parent.children;
+            let index=0;
+            for(let i=0;i<child.length;i++){
+               if(child[i]==element){
+               	  index=i;
+                  break;
+               }
+            }
+            let nextall=Array.from(child).slice(index+1);
+            // console.log(nextall)
+            for(let i=0;i<nextall.length;i++){
+               if(nextall[i].nodeName==tagname.toUpperCase()){
+               	  // console.log(nextall[i])
+               	  return  nextall[i];
+               }
+            }
+            return null;        
+        }
+        let bbb=document.querySelector('.son2');
+        console.log(next(bbb,'div'));
+	</script>
+</body>
+</html>
