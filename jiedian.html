@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>create</title>
+</head>
+<style>
+.box{
+	width: 600px;
+	height: 600px;
+	border: 2px solid #ccc;
+}
+</style>
+<body>
+ <div class="box">
+ 	<div class="son">asadas</div>
+ 	<span>asdadsas</span>
+ 	<p>asdsasda</p>
+ </div>
+<script>
+		window.onload = function(){
+			let box=document.querySelector('div')
+			let divs = document.createElement('div');  //创建元素
+			divs.style.width='300px';  //修饰元素
+			divs.style.height='300px';
+			divs.style.background='yellow';
+            divs.className = 'son1';
+            box.appendChild(divs);  //把divs插入到box中
+	
+			// 行内样式
+					// divs.style.cssText=`          
+		   //             width:150px;
+		   //             height:150px;
+		   //             background:blue;
+					// `;
+		   //          box.appendChild(p);//
+             let boxspan=document.querySelector('span')
+	        // box.insertBefore(divs,boxspan)//在divs中把divs插入到span的前面
+	        // 父元素.insertBefore(插入元素,位置元素) //插入到某个元素的前面
+	        
+	        // box.removeChild(divs);//删除一个元素节点（从页面中移除，但内存还在）
+	        // divs=null //在内存中删除
+
+	        // box.replaceChild(divs,son); //在box中用divs替换点son
+
+	        // divs.cloneNode(); //复制divs  当无参数时默认内容不复制
+	        // 当有参数： false  只复制他自己  true：子元素也复制
+
+//
+HTMLElement.prototype.appendTo=function(parent){
+      parent.appendChild(this);
+}
+// divs.appendTo(box)
+HTMLElement.prototype.prependTo=function(parent){
+	let first=parent.firstElementChild;
+	if(first){
+		parent.insertBefore(this,first);
+	}else{
+		parent.appendChild(this);
+	}
+}
+divs.prependTo(box);
+// 用insertBefore模拟insertAfter
+function insertAfter(element,position){
+	let next=position.nextSibling;
+	let parent=position.parentNode;
+	if(next){
+		parent.insertBefore(element,next);
+	}else{
+		parent.appendChild(element);
+	} 
+}
+let box1=document.querySelector('.son');
+// insertAfter(divs,box1);
+// 用insertBefore模拟insertAfter   --------对象方法
+HTMLElement.prototype.insertAfter=function(element){
+	let next=this.nextSibling;
+	let parent=this.parentNode;
+	if(next){
+		parent.insertBefore(element,next);
+	}else{
+		parent.appendChild(element);
+	}
+}
+// box1.insertAfter(divs);
+// 用insertBefore模拟prependChild（插到最前面----父元素的第一个子元素）-------对象方法
+HTMLElement.prototype.prependChild=function(element){
+	let first=this.firstElementChild;
+	if(first){
+		this.insertBefore(element,first);
+	}else{
+		this.appendChild(element);
+	}
+}
+// box.prependChild(divs);
+// 删除父元素中的所有节点----对象---方法一：
+HTMLElement.prototype.empty=function(){
+	let child=this.children;
+	for(let i=child.length-1;i>-1;i--){
+       this.removeChild(child[i]);
+       child[i]=null;
+	}
+}
+ // box.empty();
+ // 删除父元素中的所有节点----对象---方法二：
+HTMLElement.prototype.empty1=function(){
+	this.innerHTML=''; //空字符串，不能写none，none为一个对象
+}
+// box.empty1();
+}
+</script>
+</body>
+</html>
