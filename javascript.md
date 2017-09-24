@@ -2704,3 +2704,65 @@ box.offsetHeight// 获取尺寸
 | 注释节点 |  #comment   |      8       |     注释内容     |
 | 文档节点 |  #document  |      9       |     null     |
 | 属性节点 |             |              |              |
+
+
+
+
+
+
+
+```js
+1.创建元素节点
+    document.createElement('tagname');
+
+    let divs = document.createElement('div');  //创建元素
+    divs.style.width='300px'；  //修饰元素
+2.插入
+    parent.insertBefore(element,position);
+        拓展：parent.prependChild
+             son.pretendTo   son.appendTo()
+             element.insertAfter()
+             
+         
+    box.appendChild(divs)  //把divs插入到box中 appendchild()  插入到页面中
+ 
+    //父元素.insertBefore(插入元素,位置元素) //插入到某个元素的前面
+     box.insertBefore(divs,span)//在divs中把divs插入到span的前面
+	       
+
+    let p = document.createElement('p');  创建元素
+    p.className = 'p';   //通过在css中定义的类名给样式
+    box.appendChild(p);
+3.删除
+parent.removeChild(element);//删除一个元素节点element（从页面中移除，但内存还在）
+divs=null //在内存中删除
+4.替换
+ parent.replaceChild(divs,son);
+//在parent中用divs替换点son
+5.克隆
+element.cloneNode()
+//复制element  当无参数时默认内容不复制
+// 当有参数： false  只复制他自己  true：子元素也复制
+```
+标准属性（元素本来就有的）
+
+```js
+box.getAttribute('id')//获取属性（可以自定义属性）
+docoment.getElementClassName()//只能获取属性，不能设置
+```
+
+自定义属性（自己家的）
+
+```js
+box.setAttribut('aa','bb')//给box设置一个aa的属性，属性值为bb
+当元素使用scroll的时候：
+box.scrollTop();   获取超出上边的距离
+box.scrollLeft();   获取超出左边的距离
+```
+
+```js
+overflow:auto//超出部分自动判断是否加滚动条
+overflow:scroll//加一个滚动条
+```
+
+### 按需加载
