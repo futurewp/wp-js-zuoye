@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+    .box{
+    	width: 300px;
+    	height: 300px;
+    	background: #008ed0;
+    	border: 10px solid #666;
+    	margin-top: 20px;
+    	position: absolute;
+    	left: 0;
+    	top: 0;
+    }
+    .son{
+    	width: 100px;
+    	height: 100px;
+    	border-radius: 50%;
+    	background: #008ed0;
+    	border: 10px solid #666;
+    	margin-top: 20px;
+    	position: absolute;
+    	right: 0;
+    	top: 0;
+    }
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+	<div class="son"></div>
+</body>
+</html>
+<script>
+ //    let box=document.querySelector('.box')
+	// // box.addEventListener('click',function(){},布尔值)//添加一个事件的监听；用来监听事件类型;参数为：事件名、执行函数、布尔值默认false
+	// // 给同一个事件类型可以绑定多个执行函数
+	// // box.removeEventListener(type, listener, useCapture)\
+	// box.addEventListener('mouseove',function(e){
+ //         this.innerHTML=`
+ //           相对于页面 pageX=${e.pageX};
+ //           相对于页面 pageY=${e.pageY};
+ //           相对于浏览器 clientX=${e.clientX}
+ //           相对于浏览器 clientY=${e.clientY}
+ //           相对于事件源 offsetX=${e.offsetX}
+ //           相对于事件源 offsetY=${e.offsetY}
+ //           相对于屏幕 screenX=${e.screenX}
+ //           相对于屏幕 screenY=${e.screenY}
+ //         `
+	// })
+	window.addEventListener('load',function(){
+        // let box=document.querySelector('div.box')
+        // box.addEventListener('mousedown',function(e){
+        // let ox=e.offsetX,oy=e.offsetY
+        //     document.addEventListener('mousemove',fn)
+        // 	box.addEventListener('mouseup',function(){
+        // 		document.removeEventListener('mousemove',fn)
+        // 	})
+        	
+        // 	function fn(e){ 
+        // 	   let lefts=e.clientX-ox,tops=e.clientY-oy;
+        // 	   box.style.left=`${lefts}px`;
+        // 	   box.style.top=`${tops}px`; 
+        //     }  
+           
+
+        // })
+        
+        let box=document.querySelector('div.box')
+        let son=document.querySelector('div.son')
+        let drag = new Drag(box);
+        let drag1=new Drag(son);
+        drag.move();
+        drag1.move()
+
+	})
+</script>
+<script>
+	class Drag{
+		constructor(obj){
+			this.obj=obj;
+		}
+		move(){
+			let that=this
+			this.obj.addEventListener('mousedown',function(e){
+                let ox=e.offsetX,oy=e.offsetY
+				document.addEventListener('mousemove',fn);
+				that.obj.addEventListener('mouseup',function(){
+					document.removeEventListener('mousemove',fn);
+				})
+        	    function fn(e){ 
+        	       let lefts=e.clientX-ox,tops=e.clientY-oy;
+        	       console.log(lefts)
+        	       that.obj.style.left=`${lefts}px`;
+        	       that.obj.style.top=`${tops}px`; 
+                }  
+			})
+		}
+	}
+</script>

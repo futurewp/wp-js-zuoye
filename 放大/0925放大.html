@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大0925</title>
+	<script src="window.onload.js"></script>
+	<style>
+        .small,.big{
+        	width: 300px;
+        	height: 400px;
+        	float: left;
+            margin-right: 20px;
+            border: 2px solid #ccc;
+            overflow: hidden;
+            position: relative;
+        }
+        .small>img{
+        	width: 100%;
+        	height: 100%;
+        }
+        .big>img{
+        	position: absolute;
+        	left: 320px;
+        	top: 0;
+        }
+	</style>
+</head>
+<body>
+	<div class="small"><img src="b1.jpg" alt=""></div>
+	<div class="big"><img src="b1.jpg" alt=""></div>
+</body>
+</html>
+
+<script>
+	$(function(){
+		let small=$('.small')[0];
+		let big=$('.big')[0];
+		let bImg=$('img',big)[0];
+		let bili=bImg.offsetWidth/parseInt(getComputedStyle(small,null).width);
+		let bili1=bImg.offsetHeight/parseInt(getComputedStyle(small,null).height);
+		console.log(bili1)
+		small.onmousemove=function(element){
+			let ox=element.offsetX,oy=element.offsetY;
+			bImg.style.left=`${-ox*bili/2}px`
+					console.log(-ox*bili)
+			bImg.style.top=`${-oy*bili1/2}px`
+		}
+	})
+</script>
+<script>
+	class Drag{
+		constructor(obj){
+			this.obj=obj;
+		}
+		move(){
+			let that=this
+			this.obj.addEventListener('mousedown',function(e){
+                let ox=e.offsetX,oy=e.offsetY
+				document.addEventListener('mousemove',fn);
+				that.obj.addEventListener('mouseup',function(){
+					document.removeEventListener('mousemove',fn);
+				})
+        	    function fn(e){ 
+        	       let lefts=e.clientX-ox,tops=e.clientY-oy;
+        	       console.log(lefts)
+        	       that.obj.style.left=`${lefts}px`;
+        	       that.obj.style.top=`${tops}px`; 
+                }  
+			})
+		}
+	}
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>0925键盘事件</title>
+</head>
+<body>
+	<input type="text">
+	<textarea name="" id="" cols="30" rows="10"></textarea>
+</body>
+</html>
+<script>
+	document.onkeydown=function(e){
+		//e.key:区分大小写   e.keycode ：不区分大小写，输出对应的ASCII码
+		console.log(e.key,e.keyCode)
+		// 判断是否按下一般键
+		if(e.keycode==16){
+			alert(true)
+		}
+		// 判断是否按下特殊键
+		// if(e.shiftkey){
+		// 	alert(true)
+		// }
+	}
+</script>
