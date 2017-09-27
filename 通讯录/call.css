@@ -1,0 +1,71 @@
+/*
+* @Author: Administrator
+* @Date:   2017-09-27 17:12:05
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-09-27 19:45:22
+*/
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+*{
+	-webkit-tap-hightlight-color: rgba(0, 0, 0, 0);
+	-webkit-text-size-adjust: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+	background: #fbfbfb;
+}
+a{
+	text-decoration: none;
+}
+header{
+	width: 100%;
+	height: 1.2rem;
+	background: #fbfbfb;
+	position: fixed;
+	left: 0;
+	top: 0;
+	padding: 0.2rem 0.3rem;
+	border-bottom: 0.01rem solid #e0e0e0;
+	overflow: hidden;
+}
+header > input{
+	float: left;
+	width: 100%;
+	height: 0.8rem;
+	text-align: center;
+	background: #ffffff;
+	border: 0.01rem solid #e0e0e0;
+    outline: none;
+    color: #333333;
+    font-size: 0.2rem;
+    border-radius: 0.05rem;
+}
+dl{
+	padding: 1.2rem 0;
+	width: 100%;
+	height: auto;
+}
+dt{
+	padding-left: 0.15rem;
+	width: 100%;
+	height: 1rem;
+	background: #e0e0e070;
+	font-size: 0.4rem;
+	line-height: 1rem;
+}
+dd{
+	width: 100%;
+	height: 1rem;
+	margin-left: 0.4rem;
+	line-height: 1rem;
+	border-bottom: 0.01rem solid #e0e0e0;
+}
+dd a{
+	display: block;
+	font-size: 0.12rem;
+    color: #666666;
+}

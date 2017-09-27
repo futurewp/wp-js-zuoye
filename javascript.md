@@ -2598,7 +2598,6 @@ console.dir(document);  //当要打印一个对象时，一般用  console.dir()
     getComputedStyle(x,y).属性名  x:要获取样式的对象名  y：默认值null
 修改属性：
      对象名.属性名=''             //获取或操作该对象的属性
-
 ```
 
 ### 事件(驱动)
@@ -2611,7 +2610,7 @@ console.dir(document);  //当要打印一个对象时，一般用  console.dir()
 2.  事件源：（发生在谁身上）
 3.  事件处理函数：（事件发生的时候需要干什么）
 
-事件的分类：
+### 事件的分类
 
 ```js
      鼠标：
@@ -2660,15 +2659,13 @@ box.offsetHeight// 获取尺寸
 .offsetTop
 ```
 
-
+# 节点
 
 文档对象模型是由节点组成一个文档树模型。由元素节点、属性节点、文本节点组成，节点之间相互联系、相互影响，称之为模型
 
-节点：
-
 文档：文档节点；标签：元素节点；属性：属性节点；文本：文本节点；注释：注释节点
 
-属性节点
+### 属性节点
 
 ```js
 1. document.querySelector('div')//选中的是指定选择器的第一个元素（不用加下标--因为获取    的是元素）；
@@ -2705,12 +2702,6 @@ box.offsetHeight// 获取尺寸
 | 文档节点 |  #document  |      9       |     null     |
 | 属性节点 |             |              |              |
 
-
-
-
-
-
-
 ```js
 1.创建元素节点
     document.createElement('tagname');
@@ -2744,14 +2735,14 @@ element.cloneNode()
 //复制element  当无参数时默认内容不复制
 // 当有参数： false  只复制他自己  true：子元素也复制
 ```
-标准属性（元素本来就有的）
+### 标准属性（元素本来就有的）
 
 ```js
 box.getAttribute('id')//获取属性（可以自定义属性）
 docoment.getElementClassName()//只能获取属性，不能设置
 ```
 
-自定义属性（自己家的）
+### 自定义属性（自己家的）
 
 ```js
 box.setAttribut('aa','bb')//给box设置一个aa的属性，属性值为bb
@@ -2765,4 +2756,122 @@ overflow:auto//超出部分自动判断是否加滚动条
 overflow:scroll//加一个滚动条
 ```
 
-### 按需加载
+# 按需加载
+
+# 楼层跳转
+
+# 事件详解
+
+## 事件绑定方式
+
+### 一般的绑定方式：
+
+#### js脚本
+
+```js
+obj.onclick=function(){}
+```
+
+#### 行内：
+
+```css
+onclick="";
+```
+
+#### addEventListener
+
+同一个事件类型绑定多个事件处理函数
+
+```js
+	box.addEventListener(type,function(){},布尔值)//添加一个事件的监听；用来监听事件类型;参     数为：事件名、执行函数、布尔值默认false，可有可无
+	// 给同一个事件类型可以绑定多个执行函数
+    例：   box.addEventListener('click',function(){},false)
+```
+
+### 事件删除方式
+
+#### js脚本
+
+```JS
+obj.onclick=null;
+```
+
+#### removeEventListener
+
+同一个事件类型删除多个事件处理函数
+
+```js
+	box.removeEventListener(type,function(){},布尔值)//添加一个事件的监听；用来监听事件类型;参     数为：事件名、执行函数、布尔值默认false，可有可无
+	// 给同一个事件类型可以删除多个执行函数
+    //只能删除以字面量声明的函数
+```
+
+# 事件对象
+
+记录当事件触发时的一些相关信息
+
+事件对象只能在事件函数内部调用；事件处理函数结束后会自动销毁
+
+如何获取事件对象
+
+在事件处理函数中传一个参数就是事件对象
+
+# 事件流
+
+当页面中某个元素触发时，本身以及页面中所有的（父辈）元素都会响应 该事件 ，并按照某一特定的顺序去传播。传播顺序（执行顺便）称之为事件流
+
+事件流类型：
+
+冒泡型事件流： 由明确事件到最不明确的事件源（从下往上）
+
+​                   由on绑定的事件
+
+​                    addEventListener（false）   
+
+捕获型事件流：由不明确事件到最明确的事件源（从上往下）                        
+
+​                      addEventListener（true）   
+
+	// ie浏览器中给同一事件添加多个时间函数
+	box.attachEvent('onclick', function(0){})
+	// addEventListener功能相同，但用法不同，最大区别在于this：attachEvent的this指向window，addEventListener的this指向调用对象，
+	
+	box.addEventListener('click', function(e){
+	   e.stopPropagation();//阻止事件流
+	})//冒泡型
+	
+	box.onclick=function(e){
+	    e.target.style.background='red'//e.target为目标对象，当事件触发时，真正的目标执行者
+	}//e为事件对象
+	   
+	e.currentTarget//事件源
+	// 事件委派：-------子元素的事件委派给父辈元素  例：棋盘
+	大量元素相同事件；
+	js动态创建的元素
+
+# 本地存储
+
+localStorage----------是个对象
+
+	  setItem()  //设置
+	  localStorage.setItem('name','zhangsan');
+	  参数：属性名 属性值
+	 
+	  getItem()  //获取
+	  localStorage.getItem('name');
+	  参数：属性名
+	  
+	  removeItem()//移除
+	  localStorage.removeItem('name');
+	  参数：属性名
+	  
+	  clear()//清除
+	  localStorage.clear();清空（全部）
+sessionStorage----------是个对象
+```js
+  用法localStorage与相同；
+  区别在于sessionStorage只能在当前页面保存、浏览器关掉时数据清除；
+  localStorage可以在(同一域名)几个页面中数据共享，浏览器关掉时数据会永久保存，除非手动删除
+  json.stringify(arr)  把某一对象转化为字符串
+  JSON.parse(json.stringify(arr))  把字符串转化为对象(属性必须有双引号)
+```
