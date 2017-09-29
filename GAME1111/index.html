@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+    *{
+    	margin: 0;
+    	padding: 0;
+    }
+    html,body{
+    	width: 100%;
+    	height: 100%;
+
+    }
+    body{
+    	overflow: hidden;
+    	background:url('img/c25a0c6ftda2146952072&690.jpg') no-repeat center/cover;
+    }
+	.char{
+		width: 80px;
+		height: 80px;
+		background-size:80px 80px;
+		background-position: center; 
+		font-size: 50px;
+		border-radius: 50%;
+		color: #fff;
+		line-height: 80px;
+		text-align: center;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.box{
+		position: absolute;
+		background: gold;
+		border-radius: 30px;
+		padding: 5px 10px;
+		top: 25px;
+		left: 160px;
+		z-index: 9999;
+		font-size: 25px;
+		font-weight: 600;
+		color: #000;
+	}
+	.box>span{
+		font-size: 30px;
+	}
+	.hp{
+		position: absolute;
+		background: red;
+		border-radius: 40px;
+		padding: 5px 10px;
+		top: 85px;
+		left: 160px;
+		z-index: 9999;
+		font-size: 25px;
+		font-weight: 600;
+		color: #000;
+	}
+	.hp>span{
+		font-size: 30px;
+	}
+</style>
+<body>
+	<div class="box">分数：<span>0</span></div>
+	<div class="hp">生命：<span>10</span></div>
+</body>
+</html>
+<script src="js/index.js"></script>
+<script>
+
+		let game=new Game();
+		game.start();
+     
+
+</script>
