@@ -2,9 +2,10 @@
 * @Author: Administrator
 * @Date:   2017-09-19 17:33:08
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-09-24 18:12:53
+* @Last Modified time: 2017-10-03 17:06:12
 */
 window.onload=function(){
+/////////////侧栏
 	let aside=document.getElementsByClassName('banner-left')[0];
 	let lis=aside.getElementsByTagName('li');
 	let item=document.getElementsByClassName('item');
@@ -75,12 +76,30 @@ window.onload=function(){
     let flag=true;
         console.log(floorArr);
     window.onscroll = function(){
+        let scrolltop=document.documentElement.scrollTop || document.body.scrollTop;
+        let hefu=document.querySelector('.hefu');
+        let byL=document.querySelector('.bkleft');
+        if(scrolltop>=600){
+            hefu.style.top='0px'
+            byL.style.left='2px'
+            hefu.style.opacity='1'
+            byL.style.opacity='1'
+        }
+        if(scrolltop<900){
+            hefu.style.top='-50px'
+            byL.style.left='-34px'
+            hefu.style.opacity='0'
+            byL.style.opacity='0'
+        }
+
+
+
         if(!flag){
             return;
         }
         // console.log(document.documentElement.scrollTop)
         // console.log(document.body.scrollTop)
-        let scrolltop=document.documentElement.scrollTop;
+        
         floorArr.forEach((value,index)=>{
             if(scrolltop+ch>=value+200){
 
@@ -97,12 +116,17 @@ window.onload=function(){
                 }
             }
         })
-    }
 
+
+    
+
+
+    }
+    let onck=0;
     byleft.forEach((element,index)=>{
         element.onclick=function(){
             for(let i=0;i<byleft.length;i++){
-                byleft[i].style.background='none';
+                element.style.background='none';
             }
                element.style.background=color[index];
             
@@ -111,21 +135,50 @@ window.onload=function(){
             animate(document.documentElement,{scrollTop:floorArr[index]},function(){
                 flag=true;
             })
+            onck=index;
         }
-
+        element.onmouseover=function(){
+             this.style.background=color[index];
+        }
+        element.onmouseout=function(){
+            if(index!==onck){
+             this.style.background='none';
+            }
+        }
     })
-        // byleft.onmouseover=function(){
-        //     byleft[index].style.background=color[index];
-        //     byleft[byleft.length-1].style.background='#999';
-        // }
-        // byleft.onmouseout=function(){
-        //     byleft[index].style.background='rgba(0,0,0,0.6)';
-        //     byleft[byleft.length-1].style.background='#999';
-        // }
 
-
-
-
+//右边框
+    let piao=document.querySelector('.piao');
+    let piao1=document.querySelectorAll('.piao1');
+    let ghc=document.querySelector('.youbiankuang-logo');
+    let ghc1=document.querySelectorAll('.youbiankuang-3');
+    console.log(piao1)
+    ghc.onmouseover=function(){
+       piao.style.display='block';
+       ghc.style.background='#ff0036';
+       // piao.style.left= '-80px';
+       animate(piao,{left:-80});
+    }
+    ghc.onmouseout=function(){
+       piao.style.display='none';
+       ghc.style.background='none';
+       // piao.style.left= '-120px';
+       animate(piao,{left:-120});
+    }
+    ghc1.forEach((element,index)=>{
+        element.onmouseover=function(){
+           piao1[index].style.display='block';
+           element.style.background='#ff0036';
+           // piao1.style.left= '-80px';
+           animate(piao1[index],{left:-80});
+        }
+        element.onmouseout=function(){
+           piao1[index].style.display='none';
+           element.style.background='none';
+           // piao1.style.left= '-120px';
+           animate(piao1[index],{left:-120});
+        }
+})
 
 
 

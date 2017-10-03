@@ -19,9 +19,7 @@
 
 .icon-kafei:before { content: "\e601"; }
 
-.icon-shouji:before { content: "\e602"; 
-font-size: 12px;
-color: #ff0036 }
+.icon-shouji:before { content: "\e602";}
 
 .icon-zhubaoshipin:before { content: "\e603";}
 
@@ -57,9 +55,7 @@ color: #ff0036 }
 
 .icon-shengxianshuiguo:before { content: "\e613";}
 
-.icon-woguanzhudepinpai:before { content: "\e614"; 
-font-size: 12px;
-color: #ff0036 }
+.icon-woguanzhudepinpai:before { content: "\e614";}
 
 .icon-tianmaochaoshigouwuche:before { content: "\e615"; }
 
@@ -75,13 +71,9 @@ float: left;}
 
 .icon-shoucang:before { content: "\e619"; }
 
-.icon-sanjiao1:before { content: "\e61a"; 
-font-size: 6px;
-color: #bbbbbb;}
+.icon-sanjiao1:before { content: "\e61a";}
 
-.icon-gouwuchexuanzhong:before { content: "\e61b";
-font-size: 12px;
-color: #ff0036  }
+.icon-gouwuchexuanzhong:before { content: "\e61b"; }
 
 .icon-wodezichan:before { content: "\e61c"; }
 
