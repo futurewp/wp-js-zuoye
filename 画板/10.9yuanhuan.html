@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>circle</title>
+</head>
+<style>
+	
+	.box{
+		width: 300px;
+		height: 300px;
+		border:1px solid red;
+		position: relative;
+	}
+	.xp{
+		width: 20px;
+		height: 20px;
+		background: #008ed0;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.zz{
+		width: 300px;
+		height: 300px;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+</style>
+<body>
+<div class="box">
+	<canvas width="300" height="300">	
+	</canvas>
+	<div class="xp"></div>
+	<div class="zz"></div>
+</div>
+	<button>后退</button>
+</body>
+</html>
+<script>
+	window.onload=function(){
+		let canvas=document.querySelector('canvas');
+		let ctx=canvas.getContext("2d");
+////////////画圆
+        // for(let i=0;i<4;i++){
+        // 	for(let j=0;j<3;j++){
+        // 		let x=(2*j+1)*30+(j+1)*20
+        // 		let y=(2*i+1)*30+(i+1)*20
+        // 		let endrad=Math.PI+Math.PI/2*j
+        // 		let dir= i%2==0 ? false : true;
+        // 		// let dir=i%2 ? true : false;
+        // 		// let dir = !!(i%2)
+			     //  ctx.beginPath();
+			     //  ctx.arc(x, y, 25, 0,endrad,dir)
+			     //  // ctx.closePath();
+			     //  if(i>1){
+			     //  	ctx.fill()
+			     //  }else{
+			     //  	ctx.stroke()
+			     //  }
+        // 	}
+        // }
+
+/////////////正n角形
+         // aaa1(100,360)
+         function aaa1(cx,cy,r,n){
+         	let rad=Math.PI/n;
+         	ctx.beginPath();
+         	ctx.moveTo(cx+r, cy)        
+         	for(let i=0;i<2*n;i++){
+         		let r1= i%2==0 ? r : r/2;
+         		let x=cx+r1*Math.cos(rad*i);
+         		let y=cy+r1*Math.sin(rad*i);
+                ctx.lineTo(x, y);
+            }
+             ctx.closePath();
+             ctx.stroke()
+        }
+
+/////////////正n边形
+         function aaa(cx, cy,r,n){
+         	let rad=Math.PI*2/n;
+         	ctx.beginPath();
+         	ctx.moveTo(cx+r, cy)        
+         	for(let i=0;i<n;i++){
+         		// let r1= i%2==0 ? r : r/2;
+         		let x=cx+r*Math.cos(rad*i);
+         		let y=cy+r*Math.sin(rad*i);
+                ctx.lineTo(x, y);
+            }
+             ctx.closePath();
+             ctx.stroke()
+        }
+ 
+ // aaa(6)
+ let xp=document.querySelector('.xp');
+ let zz=document.querySelector('.zz');
+//////////////////////画线
+   let arr=[];
+   canvas.onmousedown=function(e){
+   	    let cx=e.offsetX,cy=e.offsetY;
+   	    	
+   	    	
+   	    canvas.onmousemove=function(el){
+   	    	let ox=el.offsetX,oy=el.offsetY;
+   	    	ctx.clearRect(0, 0, canvas.width, canvas.height)
+   	    	////画线
+   	    	if(arr.length){
+   	    		ctx.putImageData(arr[arr.length-1], 0,0)
+   	    	}
+            ctx.beginPath();
+   	    	ctx.moveTo(cx, cy);
+   	    	ctx.lineTo(ox, oy);
+            ctx.stroke();
+            ////画圆
+            let r=Math.sqrt(Math.pow(ox-cx,2)+Math.pow(oy-cy,2));
+            // let r=Math.hypot(ox-cx,oy-cy);
+            // ctx.arc(cx, cy, r, 0,Math.PI*2);
+            // ctx.stroke();
+            ////画多边形
+            // aaa(cx, cy,r,5)
+            ////画多角形
+            // aaa1(cx,cy,r,5)
+   	    }
+   	    canvas.onmouseup=function(){
+   	       arr.push(ctx.getImageData(0, 0, canvas.width, canvas.height))
+           canvas.onmouseup=null;
+           canvas.onmousemove=null;
+   	    }
+   }
+ 
+        
+
+/////////////后退
+
+        let btn=document.querySelector('button');
+        btn.onclick=function(){
+        	if(!arr.length){return;}
+             arr.pop();
+             ctx.clearRect(0, 0, canvas.width, canvas.height)
+             if(arr.length==0){
+             	return;
+             }
+             ctx.putImageData(arr[arr.length-1], 0,0);
+        }
+
+/////////////后退  快捷键
+       document.onkeydown=function(e){
+       	    if(e.keyCode!==90){
+       	    	return;
+       	    }
+	             
+	             arr.pop();
+	             ctx.clearRect(0, 0, canvas.width, canvas.height)
+	             if(arr.length==0){
+	             	return;
+	             }
+	             ctx.putImageData(arr[arr.length-1], 0,0);
+       	    
+       }
+	
+////////////橡皮擦
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+</script>
