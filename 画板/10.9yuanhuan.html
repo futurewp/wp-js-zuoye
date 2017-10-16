@@ -6,11 +6,8 @@
 </head>
 <style>
 	
-	.box{
-		width: 300px;
-		height: 300px;
+	canvas{
 		border:1px solid red;
-		position: relative;
 	}
 	.xp{
 		width: 20px;
@@ -29,12 +26,9 @@
 	}
 </style>
 <body>
-<div class="box">
 	<canvas width="300" height="300">	
 	</canvas>
-	<div class="xp"></div>
-	<div class="zz"></div>
-</div>
+
 	<button>后退</button>
 </body>
 </html>
@@ -94,8 +88,6 @@
         }
  
  // aaa(6)
- let xp=document.querySelector('.xp');
- let zz=document.querySelector('.zz');
 //////////////////////画线
    let arr=[];
    canvas.onmousedown=function(e){
@@ -109,15 +101,15 @@
    	    	if(arr.length){
    	    		ctx.putImageData(arr[arr.length-1], 0,0)
    	    	}
-            ctx.beginPath();
-   	    	ctx.moveTo(cx, cy);
-   	    	ctx.lineTo(ox, oy);
-            ctx.stroke();
+           //  ctx.beginPath();
+   	    	  // ctx.moveTo(cx, cy);
+   	    	  // ctx.lineTo(ox, oy);
+           //  ctx.stroke();
             ////画圆
-            let r=Math.sqrt(Math.pow(ox-cx,2)+Math.pow(oy-cy,2));
-            // let r=Math.hypot(ox-cx,oy-cy);
-            // ctx.arc(cx, cy, r, 0,Math.PI*2);
-            // ctx.stroke();
+            // let r=Math.sqrt(Math.pow(ox-cx,2)+Math.pow(oy-cy,2));
+            let r=Math.hypot(ox-cx,oy-cy);
+            ctx.arc(cx, cy, r, 0,Math.PI*2);
+            ctx.stroke();
             ////画多边形
             // aaa(cx, cy,r,5)
             ////画多角形

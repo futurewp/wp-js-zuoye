@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="rem.js"></script>
+</head>
+<style>
+/* 	html{
+		font-size: 100px; */  /* 750 */
+	/* } */
+	/* 750 414 320 320< */
+/* 	@media all and (min-width: 414px) and (max-width: 750px){
+		html{
+			font-size: 100px;
+		}
+	}
+	@media all and (min-width: 375px) and (max-width: 414px){
+		html{
+			font-size: 50px;
+		}
+	}
+	@media all and (min-width: 320px) and (max-width: 375px){
+		html{
+			font-size: px;
+		}
+	} */
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	/* -webkit-tap-hi */
+	-webkit-text-size-adjust: none;
+}
+/* banner开始  */
+.banner{
+   width: 100%;
+   height: 3rem;
+   position:relative;
+   overflow: hidden;
+}
+.banner-list{
+	width: calc(100% * 3);
+	height: 3rem;
+	position:absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+}
+.banner-list li{
+	width: 100%;
+	height: 3rem;
+}
+img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+ .bar-list{
+	width: 1.8rem;
+	height: 0.24rem;
+	position:absolute;
+    left:50%;      
+    margin-left:-0.9rem;  
+    bottom: 0.2rem;
+    display: flex;
+    justify-content: space-around;
+}
+.bar-list li{
+	width: 0.2rem;
+	height: 0.2rem;
+	background: #333;
+	border: 0.02rem solid #ccc;
+	border-radius: 50%;
+}
+.bar-list .first{
+	background: red;
+}
+/* banner结束 */
+</style>
+<body>
+<!-- banner开始 -->
+<div class="banner">
+	    <ul class="banner-list">
+   	 	    <li><img src="1.webp" alt=""></li>
+		    <li><img src="2.webp" alt=""></li>
+		    <li><img src="3.webp" alt="" class="img"></li>
+        </ul>
+	    <ul class="bar-list">
+		    <li class="first"></li>
+		    <li></li>
+		    <li></li>
+	    </ul>
+</div>
+<!-- banner结束 -->
+</body>
+</html>
+<script>
+	   // window.addEventListener('load',function(){
+	   // 	  let box =document.querySelector('.box');
+	   // 	  // touchstart触摸 touchmove触摸 touchand触摸   touchcancel触摸
+	   // 	  box.addEventListener('touchstart',function(){
+    //             this.style.background='green';
+	   // 	  })
+	   // 	  box.addEventListener('touchmove',function(){
+    //             this.style.background='yellow';
+	   	  	    
+	   // 	  })
+	   // 	  box.addEventListener('touchend',function(){
+    //             this.style.background='red';
+	   // 	  	     console.log(end)
+	   // 	  })
+	   // })
+	   // 
+	   // 
+	   // 
+	   // 
+	   // 
+	   	// window.addEventListener('load',function(){
+	   	//   let box =document.querySelector('.box');
+
+	   	//   box.addEventListener('touchmove',function(e){
+     //            touches       屏幕上所有手指信息
+     //            targetTouches   当前dom元素上所有手指信息
+     //            changedTouches   触发事件的手指信息
+
+               // })
+	   	  	    
+	   	//   })
+
+window.addEventListener('load',function(){
+   let box=document.querySelector('.banner');
+   let banner=document.querySelector('.banner-list');
+   let bannerLi=document.querySelectorAll('.banner-list>li');
+   let imgw=parseInt(getComputedStyle(box,null).width);
+   let btn=document.querySelectorAll('.bar-list>li');
+  
+   banner.innerHTML += banner.innerHTML;
+   let len=banner.childElementCount;
+   console.log(len)
+   banner.style.width=`${imgw*len}px`
+//现在位置=原来位置+移动距离（手指滑动距离）
+//         offsetX      
+	banner.addEventListener('touchstart',function(e){
+		let event=e.changedTouches[0];
+		let sx=this.offsetLeft;
+		let cx=event.pageX;
+		this.style.transition='none';
+        let n=sx/imgw;
+        if(n==0){
+        	n==-3;
+        }
+        if(n==1-len){
+        	n=-2;
+        }
+
+        banner.style.left=`${n*imgw}px`
+        sx=this.offsetLeft;
+
+		banner.addEventListener('touchmove',function(e){
+			let event=e.changedTouches[0];
+			let mx=event.pageX;
+			let lefts=sx+(mx-cx); 
+			banner.style.left=`${lefts}px`;
+
+		})
+
+		banner.addEventListener('touchend',function(){
+	        let lefts=this.offsetLeft;
+	        let num=Math.round(lefts/imgw);
+	        this.style.left=`${num*imgw}px`;
+		    this.style.transition='all 0.2s';
+		
+        if(Math.abs(num)%3==0){
+        	for(let i=0;i<btn.length;i++){
+        		btn[i].style.background='#333';
+        	}
+        	btn[0].style.background='red';
+        }
+        if(Math.abs(num)%3==1){
+        	for(let i=0;i<btn.length;i++){
+        		btn[i].style.background='#333';
+        	}
+        	btn[1].style.background='red';
+        }
+        if(Math.abs(num)%3==2){
+        	for(let i=0;i<btn.length;i++){
+        		btn[i].style.background='#333';
+        	}
+        	btn[2].style.background='red';
+        }  
+
+
+         //    let quyu=Math.abs(num)%3;
+	        // btn.forEach(element=>{
+	        // 	element.style.background='#333';
+	        // })
+	        // btn[quyu].style.background='red';
+
+
+
+		}) 
+
+  
+	
+	})
+
+
+
+})
+
+
+</script>
