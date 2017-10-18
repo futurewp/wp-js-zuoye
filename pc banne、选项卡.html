@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="jquery-3.2.1.js"></script>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	/* 选项卡 */
+	ul.tab{
+		width: 1010px;
+		height: 250px;
+		margin: 0 auto;
+		background: #0A95DA;
+
+	}
+	ul.tab>li{
+		width: 200px;
+		height: 30px;
+		border: 1px solid #000;
+		float: left;
+		text-align: center;
+		line-height: 30px;
+
+	}
+	.item{
+		width: 100%;
+		height: auto;
+		background: #ccc;
+		display: none;
+	}
+	.item>li{
+		width: 200px;
+		height: 30px;
+		border: 1px solid #fff;
+		float: left;
+		text-align: center;
+		line-height: 30px;
+
+	}
+
+
+
+
+
+
+
+	/* banner */
+	.win{
+		width: 800px;
+		height: 400px;
+		margin: 20px auto;
+		overflow: hidden;
+		position: relative;
+	}
+	.win>.imgBox{
+		width: 100%;
+		height: 100%;
+
+	}
+	.win>.imgBox>li{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 100%;
+		top: 0;
+	}
+    .win>.imgBox>li:first-child{
+    	left: 0;
+    	background: blue;
+    }
+    .win>.imgBox>li:nth-child(2){
+    	background: red;
+    }
+    .win>.imgBox>li:nth-child(3){
+    	background: yellow;
+    }
+    .win>.imgBox>li:nth-child(4){
+    	background: #ff6700;
+    }
+</style>
+<body>
+	<ul class="tab">
+		<li>
+		    aaaaa
+			<ul class="item">
+				<li>1111</li>
+				<li>1111</li>
+				<li>1111</li>
+				<li>1111</li>
+				<li>1111</li>
+			</ul>
+		</li>
+
+		<li>
+		    bbbbb
+			<ul class="item">
+				<li>2222</li>
+				<li>2222</li>
+				<li>2222</li>
+				<li>2222</li>
+				<li>2222</li>
+			</ul>
+		</li>
+
+		<li> 
+		    ccccc
+			<ul class="item">
+				<li>3333</li>
+				<li>3333</li>
+				<li>3333</li>
+				<li>3333</li>
+				<li>3333</li>
+			</ul>
+		</li>
+
+		<li>
+		    ddddd
+			<ul class="item">
+				<li>4444</li>
+				<li>4444</li>
+				<li>4444</li>
+				<li>4444</li>
+				<li>4444</li>
+			</ul>
+		</li>
+
+		<li>
+		    eeeee
+			<ul class="item">
+				<li>5555</li>
+				<li>5555</li>
+				<li>5555</li>
+				<li>5555</li>
+				<li>5555</li>
+			</ul>
+		</li>
+	</ul>
+<div class="win">
+	<ul class="imgBox">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+
+
+</body>
+</html>
+<script>
+////////////////////////选项卡
+	let lis=$('.tab>li');
+	// let item=$('.item');
+	lis.on('mouseenter mouseleave',function(){
+		// let index=$(this).index();
+		// $('.item',this)
+		// $(this).find('.item')
+		$(this).children('.item').slideToggle();
+
+	})
+</script>
+
+<script>
+////////////////////////banner
+	$(function(){
+		let imgs=$('.imgBox>li');
+		let imgW=imgs.width();
+		let now=next=0;
+
+		let t=setInterval(move,1000);
+
+		function move(){
+			next++;
+			if(next==imgs.length){
+				next=0;
+			}
+			imgs.eq(next).css({left:imgW});
+			imgs.eq(next).animate({left:0});
+			imgs.eq(now).animate({left:-imgW});
+			now=next;
+
+		}
+	})
+</script>
