@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery-3.2.1.js"></script>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		overflow: hidden;
+		background: url('images/bj.jpg') no-repeat center;
+		background-size: 120% 120%;
+	}
+	.zhuozi{
+		width: 700px;
+		height: 600px;
+		/* background: #008ed0; */
+		margin: 20px auto;
+		position: relative;
+	}
+	.poke{
+		width: 92px;
+		height: 130px;
+		position: absolute;
+		left: 300px;
+		top: 0;
+		background-color: #ccc;
+		background-position: center;
+		background-size: cover;
+		opacity: 0;
+	}
+	.active{
+		box-shadow: 0 0 2px 3px #7114f0;
+	}
+	.btn{
+		width: 220px;
+		height: 130px;
+		padding: 10px;
+		position: absolute;
+		left: calc(50% - 110px);
+		top: 445px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+	.btn>button{
+		width: 160px;
+		height: 50px;
+		border-radius: 30px;
+		box-shadow: 0 0 2px 5px #9abbff inset;
+		background: #008ed0;
+		border: none;
+		font-size: 20px;
+		color: #fff;
+		line-height: 50px;
+		text-align: center;
+		cursor: pointer;
+
+	}
+	.btn>button>span{
+		font-size: 24px;
+		color: red;
+	}
+</style>
+<body>
+	<div class="zhuozi">
+		<div class="btn">
+			<button class="btn1">血量：<span>24</span>/24</button>
+			<button class="btn2">一键回血</button>
+		</div>
+	</div>
+
+</body>
+</html>
+<script>
+	$(function(){
+		////产生poke
+		let color = ['f','h','r','t'];
+		let poke=[];
+		let flag={};
+		// for(let i=0;i<52;i++){
+		// 	let hua=color[Math.floor(Math.random()*color.length)];
+		// 	let num=Math.floor(Math.random()*13+1);
+		// 	while(flag[`${hua}_${num}`]){
+		// 		hua=color[Math.floor(Math.random()*color.length)];
+		// 	    num=Math.floor(Math.random()*13+1);
+		// 	}
+		// 	poke.push({hua,num});
+		// 	flag[`${hua}_${num}`]=true;
+		// }
+        ////////////////////////////////////////////发牌
+        while(poke.length<52){
+            let hua=color[Math.floor(Math.random()*color.length)];
+			let num=Math.floor(Math.random()*13+1);
+			if(!flag[`${hua}_${num}`]){
+				poke.push({hua,num});
+				flag[`${hua}_${num}`]=true;
+			}
+        }
+        console.log(poke)
+       
+        ///////////牌面成三角形
+        let index=0;
+        for(let i=0;i<7;i++){
+        	for(let j=0;j<=i;j++){
+		        let left=300-50*i+102*j;
+		        let top=50*i;
+        		$('<div>').addClass('poke')
+        		.attr('id',`${i}_${j}`)
+        		.data('num',poke[index].num)  //绑定属性
+        		.css('background-image',`url(images/${poke[index]['num']}${poke[index]['hua']}.png)`)
+        		.appendTo('.zhuozi')
+        		.delay(index*10)
+        		.animate({left,top,opacity: 1});
+        		index++;
+
+        	}
+        }
+       //////////////////左下角的牌
+         
+		 for(;index<poke.length;index++){
+        		$('<div>')
+        		.addClass('poke lbox')
+        		.attr('id',`${-2}_${-2}`)
+        		.data('num',poke[index].num) 
+        		.css({backgroundImage:`url(images/${poke[index]['num']}${poke[index]['hua']}.png)`})
+        		.appendTo('.zhuozi')
+        		.delay(index*10)
+        		.animate({left:0,top:460,opacity: 1});
+		 }
+
+
+
+		 ///////////////////////////////////玩法 
+		 let first=null;
+		 let lpoke;
+		 $('.zhuozi').on('click','.poke',function(e){
+              let element=$(e.target);
+              
+              ////////保证被压的牌起不来
+              let ids=element.attr('id').split('_');
+              let ele1=`#${ids[0]*1+1}_${ids[1]*1}`;
+              let ele2=`#${ids[0]*1+1}_${ids[1]*1+1}`;
+              if($(ele1).length || $(ele2).length){
+              	   return;
+              }
+
+             //////让所有的牌均有第一次点击向上动、第二次点击向下动（上下浮动）的提示效果
+              element.toggleClass('active');
+              if(element.hasClass('active')){
+                 element.animate({top:'-=10'})
+              }else{
+              	 element.animate({top:'+=10'})
+              }
+              
+
+             ////游戏规则：若第一次的牌面数字与第二次的牌面相加等于14，则两张牌都消失
+             ///否则，两张牌回归原位
+              if(!first){
+              	// 第一次点击
+              	first=$(e.target);
+              }else{
+              	//第二次点击
+	              	if(first.data('num')+element.data('num')==14){
+	              		$('.active').animate({left:600,top:0},function(){
+	              			$(this).remove();
+	              		})
+	              	}else{
+	              		$('.active').animate({top:'+=10'},function(){
+	              			$(this).removeClass('active');
+	              		})
+	              	}
+                    first=null;
+              }     
+		 
+
+
+
+
+		 })
+         console.log($('.lbox'))
+         let zindex=0;
+   		 let btnr=$('.btn1','.btn');
+
+   		 btnr.on('click',function(){
+   		 	if(!$('.lbox').length){
+   		 		return;
+   		 	}
+
+            $('span','.btn1').html(--$('.lbox').length)
+		    if($('.lbox').length==1){
+		        alert('这是最后一次机会喽')
+			}
+			
+            $('.lbox').last()
+                 .animate({left:612})
+	             .removeClass('lbox')
+	             .addClass('rbox')  
+	             .css('zIndex',zindex++)  	
+		 })  
+   		 let btnl=$('.btn2','.btn');
+   		 btnl.on('click',function(){
+   		 	if(!$('.rbox').length){
+   		 		return;
+   		 	}
+            $('.rbox').each(function(index){
+            	$(this).delay(index*10)
+            	.animate({left:0})
+	            .removeClass('rbox')
+	            .addClass('lbox')
+	            .css('zIndex',zindex++)
+            })
+            $('span','.btn1').html($('.lbox').length);
+            a=$('.lbox').length;                   
+		 }) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	})
+</script>
